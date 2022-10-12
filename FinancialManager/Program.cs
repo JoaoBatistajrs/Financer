@@ -10,9 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddDbContext<FinancialManagerDbContext>(options => options.UseInMemoryDatabase("FinancialManagerDb"));
 builder.Services.AddDbContext<FinancialManagerDbContext>(
-        options => options.UseSqlServer(builder.Configuration.GetConnectionString("FinancerApiConnectionString")));  
+        options => options.UseSqlServer(builder.Configuration.GetConnectionString("FinancerApiConnectionString")));
 
 var app = builder.Build();
 

@@ -23,15 +23,18 @@ namespace FinancialManager.Controllers
         }
 
         [HttpGet]
-        [Route("id:guid")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> GetCategory([FromRoute] Guid id)
         {
             var category = await dbContext.Categories.FindAsync(id);
-            
-            if(category == null)
-               return NotFound();
 
-            return Ok(category);
+            if (category != null)
+            {
+                return Ok(category);
+
+            }
+
+            return NotFound();
         }
 
         [HttpPost]
@@ -40,13 +43,14 @@ namespace FinancialManager.Controllers
             var category = new Category()
             {
                 Id = Guid.NewGuid(),
-                Name = addCategoryRequest.Name
+                Name = addCategoryRequest.Name,
+                Type = addCategoryRequest.Type,
             };
 
             await dbContext.Categories.AddAsync(category);
             await dbContext.SaveChangesAsync();
 
-            return Ok(category);    
+            return Ok(category);
         }
 
         [HttpPut]
@@ -55,7 +59,7 @@ namespace FinancialManager.Controllers
         {
             var category = await dbContext.Categories.FindAsync(id);
 
-            if(category != null)
+            if (category != null)
             {
                 category.Name = updateCategoryRequest.Name;
 
@@ -77,7 +81,7 @@ namespace FinancialManager.Controllers
             {
                 dbContext.Remove(category);
                 await dbContext.SaveChangesAsync();
-                return Ok(category); 
+                return Ok(category);
             }
 
             return NotFound();
