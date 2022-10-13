@@ -3,10 +3,10 @@ using FinancialManager.Domain.Interfaces;
 
 namespace FinancialManager.Domain.Models
 {
-    public class Category : ICategory
+    public class Category : IEntityBase, ICategory
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public TypeEnum Type { get; set; }  
+        public ExpenseTypeEnum Type { get; set; }  
     }
 }

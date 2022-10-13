@@ -38,7 +38,7 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCategories(AddCategoryRequest addCategoryRequest)
+        public async Task<IActionResult> AddCategories(CategoryRequest addCategoryRequest)
         {
             var category = new Category()
             {
@@ -55,7 +55,7 @@ namespace FinancialManager.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> UpdateCategories([FromRoute] Guid id, UpdateCategoryRequest updateCategoryRequest)
+        public async Task<IActionResult> UpdateCategories([FromRoute] Guid id, CategoryRequest updateCategoryRequest)
         {
             var category = await dbContext.Categories.FindAsync(id);
 

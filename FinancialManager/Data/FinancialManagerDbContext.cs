@@ -10,5 +10,6 @@ namespace FinancialManager.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Bank> Banks { get; set; }
     }
 }
