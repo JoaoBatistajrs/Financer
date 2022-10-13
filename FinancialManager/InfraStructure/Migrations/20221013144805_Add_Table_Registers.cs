@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FinancialManager.Migrations
 {
-    public partial class Add_Table_Income : Migration
+    public partial class Add_Table_Registers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Incomes",
+                name: "Registers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -18,19 +18,20 @@ namespace FinancialManager.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BankId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RegisterType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Incomes", x => x.Id);
+                    table.PrimaryKey("PK_Registers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Incomes_Banks_BankId",
+                        name: "FK_Registers_Banks_BankId",
                         column: x => x.BankId,
                         principalTable: "Banks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Incomes_Categories_CategoryId",
+                        name: "FK_Registers_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
@@ -38,20 +39,20 @@ namespace FinancialManager.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Incomes_BankId",
-                table: "Incomes",
+                name: "IX_Registers_BankId",
+                table: "Registers",
                 column: "BankId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Incomes_CategoryId",
-                table: "Incomes",
+                name: "IX_Registers_CategoryId",
+                table: "Registers",
                 column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Incomes");
+                name: "Registers");
         }
     }
 }

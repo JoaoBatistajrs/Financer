@@ -9,6 +9,6 @@ namespace FinancialManager.Domain.Models
         public string Name { get; set; }
         public string? Agency { get; set; }
         public string? AccountNumber { get; set; }
-        public AccountType AccountType { get; set; }
+        public AccountTypeEnum AccountType { get; set; }
     }
 }

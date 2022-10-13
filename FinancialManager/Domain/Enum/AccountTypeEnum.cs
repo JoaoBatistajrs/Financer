@@ -1,6 +1,6 @@
 ﻿namespace FinancialManager.Domain.Enum
 {
-    public enum AccountType
+    public enum AccountTypeEnum
     {
         Wallet,
         Bank

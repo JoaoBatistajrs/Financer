@@ -11,6 +11,6 @@ namespace FinancialManager.InfraStructure.Context
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Bank> Banks { get; set; }
-        public DbSet<Income> Incomes { get; set; }
+        public DbSet<Register> Registers { get; set; }
     }
 }

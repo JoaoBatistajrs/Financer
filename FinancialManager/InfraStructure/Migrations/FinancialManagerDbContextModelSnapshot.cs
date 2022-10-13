@@ -64,7 +64,7 @@ namespace FinancialManager.InfraStrucure.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("FinancialManager.Domain.Models.Income", b =>
+            modelBuilder.Entity("FinancialManager.Domain.Models.Register", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,16 +86,19 @@ namespace FinancialManager.InfraStrucure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RegisterType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BankId");
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Incomes");
+                    b.ToTable("Registers");
                 });
 
-            modelBuilder.Entity("FinancialManager.Domain.Models.Income", b =>
+            modelBuilder.Entity("FinancialManager.Domain.Models.Register", b =>
                 {
                     b.HasOne("FinancialManager.Domain.Models.Bank", "Bank")
                         .WithMany()

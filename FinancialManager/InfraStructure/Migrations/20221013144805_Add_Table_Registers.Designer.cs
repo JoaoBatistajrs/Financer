@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinancialManager.Migrations
 {
     [DbContext(typeof(FinancialManagerDbContext))]
-    [Migration("20221013135250_Add_Table_Income")]
-    partial class Add_Table_Income
+    [Migration("20221013144805_Add_Table_Registers")]
+    partial class Add_Table_Registers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,7 +66,7 @@ namespace FinancialManager.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("FinancialManager.Domain.Models.Income", b =>
+            modelBuilder.Entity("FinancialManager.Domain.Models.Register", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,16 +88,19 @@ namespace FinancialManager.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RegisterType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BankId");
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Incomes");
+                    b.ToTable("Registers");
                 });
 
-            modelBuilder.Entity("FinancialManager.Domain.Models.Income", b =>
+            modelBuilder.Entity("FinancialManager.Domain.Models.Register", b =>
                 {
                     b.HasOne("FinancialManager.Domain.Models.Bank", "Bank")
                         .WithMany()

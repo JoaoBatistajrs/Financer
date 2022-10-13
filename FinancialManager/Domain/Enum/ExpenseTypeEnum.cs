@@ -2,7 +2,7 @@
 {
     public enum ExpenseTypeEnum
     {
-        Fixa,
-        Variavel
+        Fixed,
+        Variable
     }
 }
