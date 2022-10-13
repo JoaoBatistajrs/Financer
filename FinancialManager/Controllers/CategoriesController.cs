@@ -1,4 +1,4 @@
-﻿using FinancialManager.Data;
+﻿using FinancialManager.InfraStructure.Context;
 using FinancialManager.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

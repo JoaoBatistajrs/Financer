@@ -1,7 +1,7 @@
 ﻿using FinancialManager.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinancialManager.Data
+namespace FinancialManager.InfraStructure.Context
 {
     public class FinancialManagerDbContext : DbContext
     {
@@ -11,5 +11,6 @@ namespace FinancialManager.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Bank> Banks { get; set; }
+        public DbSet<Income> Incomes { get; set; }
     }
 }
