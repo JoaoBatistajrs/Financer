@@ -147,22 +147,6 @@
           "build/net6.0/Microsoft.EntityFrameworkCore.Design.props": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.InMemory/6.0.9": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "6.0.9"
-        },
-        "compile": {
-          "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Microsoft.EntityFrameworkCore.Relational/6.0.10": {
         "type": "package",
         "dependencies": {
@@ -885,6 +869,60 @@
             "rid": "win"
           }
         }
+      },
+      "FinancialManager.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "FinancialManager.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/FinancialManager.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FinancialManager.Application.dll": {}
+        }
+      },
+      "FinancialManager.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/FinancialManager.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FinancialManager.Domain.dll": {}
+        }
+      },
+      "FinancialManager.InfraStructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "FinancialManager.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "6.0.10",
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.10"
+        },
+        "compile": {
+          "bin/placeholder/FinancialManager.InfraStructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FinancialManager.InfraStructure.dll": {}
+        }
+      },
+      "FinancialManager.IoC/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "FinancialManager.Application": "1.0.0",
+          "FinancialManager.Domain": "1.0.0",
+          "FinancialManager.InfraStructure": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/FinancialManager.IoC.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FinancialManager.IoC.dll": {}
+        }
       }
     }
   },
@@ -1116,20 +1154,6 @@
         "lib/net6.0/Microsoft.EntityFrameworkCore.Design.xml",
         "microsoft.entityframeworkcore.design.6.0.10.nupkg.sha512",
         "microsoft.entityframeworkcore.design.nuspec"
-      ]
-    },
-    "Microsoft.EntityFrameworkCore.InMemory/6.0.9": {
-      "sha512": "uQWxbNXOSvvQWgcDRTIfP6xC6NvyH/B8TlhCumzrPOy681LOS9RAoMPTlClboE3NyK5ptfzZhkO2vRTki0lFFw==",
-      "type": "package",
-      "path": "microsoft.entityframeworkcore.inmemory/6.0.9",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll",
-        "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.xml",
-        "microsoft.entityframeworkcore.inmemory.6.0.9.nupkg.sha512",
-        "microsoft.entityframeworkcore.inmemory.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/6.0.10": {
@@ -2245,11 +2269,31 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "FinancialManager.Application/1.0.0": {
+      "type": "project",
+      "path": "../FinancialManager.Application/FinancialManager.Application.csproj",
+      "msbuildProject": "../FinancialManager.Application/FinancialManager.Application.csproj"
+    },
+    "FinancialManager.Domain/1.0.0": {
+      "type": "project",
+      "path": "../FinancialManager.Domain/FinancialManager.Domain.csproj",
+      "msbuildProject": "../FinancialManager.Domain/FinancialManager.Domain.csproj"
+    },
+    "FinancialManager.InfraStructure/1.0.0": {
+      "type": "project",
+      "path": "../FinancialManager.InfraStructure/FinancialManager.InfraStructure.csproj",
+      "msbuildProject": "../FinancialManager.InfraStructure/FinancialManager.InfraStructure.csproj"
+    },
+    "FinancialManager.IoC/1.0.0": {
+      "type": "project",
+      "path": "../FinancialManager.IoC/FinancialManager.IoC.csproj",
+      "msbuildProject": "../FinancialManager.IoC/FinancialManager.IoC.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Microsoft.EntityFrameworkCore.InMemory >= 6.0.9",
+      "FinancialManager.IoC >= 1.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.10",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.10",
       "Swashbuckle.AspNetCore >= 6.2.3"
@@ -2261,9 +2305,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\Financer\\FinancialManager\\FinancialManager.csproj",
-      "projectName": "FinancialManager",
-      "projectPath": "C:\\Dev\\Financer\\FinancialManager\\FinancialManager.csproj",
+      "projectUniqueName": "C:\\Dev\\Financer\\FinancialManager\\FinancialManager.Api.csproj",
+      "projectName": "FinancialManager.Api",
+      "projectPath": "C:\\Dev\\Financer\\FinancialManager\\FinancialManager.Api.csproj",
       "packagesPath": "C:\\Users\\joao.santos\\.nuget\\packages\\",
       "outputPath": "C:\\Dev\\Financer\\FinancialManager\\obj\\",
       "projectStyle": "PackageReference",
@@ -2282,7 +2326,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Dev\\Financer\\FinancialManager.IoC\\FinancialManager.IoC.csproj": {
+              "projectPath": "C:\\Dev\\Financer\\FinancialManager.IoC\\FinancialManager.IoC.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -2295,10 +2343,6 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.InMemory": {
-            "target": "Package",
-            "version": "[6.0.9, )"
-          },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
             "version": "[6.0.10, )"

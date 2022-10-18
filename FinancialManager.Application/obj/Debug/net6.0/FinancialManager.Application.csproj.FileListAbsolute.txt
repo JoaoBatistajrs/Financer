@@ -1,0 +1,15 @@
+C:\Dev\Financer\FinancialManager.Application\bin\Debug\net6.0\FinancialManager.Application.deps.json
+C:\Dev\Financer\FinancialManager.Application\bin\Debug\net6.0\FinancialManager.Application.dll
+C:\Dev\Financer\FinancialManager.Application\bin\Debug\net6.0\FinancialManager.Application.pdb
+C:\Dev\Financer\FinancialManager.Application\bin\Debug\net6.0\FinancialManager.Domain.dll
+C:\Dev\Financer\FinancialManager.Application\bin\Debug\net6.0\FinancialManager.Domain.pdb
+C:\Dev\Financer\FinancialManager.Application\obj\Debug\net6.0\FinancialManager.Application.csproj.AssemblyReference.cache
+C:\Dev\Financer\FinancialManager.Application\obj\Debug\net6.0\FinancialManager.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dev\Financer\FinancialManager.Application\obj\Debug\net6.0\FinancialManager.Application.AssemblyInfoInputs.cache
+C:\Dev\Financer\FinancialManager.Application\obj\Debug\net6.0\FinancialManager.Application.AssemblyInfo.cs
+C:\Dev\Financer\FinancialManager.Application\obj\Debug\net6.0\FinancialManager.Application.csproj.CoreCompileInputs.cache
+C:\Dev\Financer\FinancialManager.Application\obj\Debug\net6.0\FinancialManager.Application.csproj.CopyComplete
+C:\Dev\Financer\FinancialManager.Application\obj\Debug\net6.0\FinancialManager.Application.dll
+C:\Dev\Financer\FinancialManager.Application\obj\Debug\net6.0\refint\FinancialManager.Application.dll
+C:\Dev\Financer\FinancialManager.Application\obj\Debug\net6.0\FinancialManager.Application.pdb
+C:\Dev\Financer\FinancialManager.Application\obj\Debug\net6.0\ref\FinancialManager.Application.dll

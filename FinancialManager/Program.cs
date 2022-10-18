@@ -6,12 +6,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+//builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
+//builder.Services.AddScoped<IRegisterService, RegisterService>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<FinancialManagerDbContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("FinancerApiConnectionString")));
+
+
 
 var app = builder.Build();
 

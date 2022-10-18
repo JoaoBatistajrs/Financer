@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8S5WoKpYTwpcqxQ2StgaUV+LYxdC2c8b59EckJQ5LijOEri2KgWtdguXvbUg3emTyJEPxU4CYbxdlMIqHI0ToA==",
+  "dgSpecHash": "LbRFIvx8AXPnQQe+mi52ZamfN8f5v6uihabLHRTUgFDyGjsF/wvnkh7ZucnxJ4LsSmQFJ+gMM4/z/q0bc77gtA==",
   "success": true,
-  "projectFilePath": "C:\\Dev\\Financer\\FinancialManager\\FinancialManager.csproj",
+  "projectFilePath": "C:\\Dev\\Financer\\FinancialManager\\FinancialManager.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\joao.santos\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
@@ -12,7 +12,6 @@
     "C:\\Users\\joao.santos\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.10\\microsoft.entityframeworkcore.abstractions.6.0.10.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.10\\microsoft.entityframeworkcore.analyzers.6.0.10.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\microsoft.entityframeworkcore.design\\6.0.10\\microsoft.entityframeworkcore.design.6.0.10.nupkg.sha512",
-    "C:\\Users\\joao.santos\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\6.0.9\\microsoft.entityframeworkcore.inmemory.6.0.9.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.10\\microsoft.entityframeworkcore.relational.6.0.10.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\6.0.10\\microsoft.entityframeworkcore.sqlserver.6.0.10.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\6.0.10\\microsoft.entityframeworkcore.tools.6.0.10.nupkg.sha512",
