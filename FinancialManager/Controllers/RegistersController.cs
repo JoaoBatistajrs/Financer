@@ -20,9 +20,7 @@ namespace FinancialManager.Controllers
         [HttpPost]
         public IActionResult AddRegister(Register register)
         {
-
-            _registerService.AddRegister(register);
-
+            
             return Ok(register);
         }
 

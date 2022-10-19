@@ -14,6 +14,7 @@ namespace FinancialManager.Domain.Models
         {
             Name = name;
             Type = type;
+            Registers = new List<Register>();
         }
 
         public Category(int id, string name, ExpenseTypeEnum type)
