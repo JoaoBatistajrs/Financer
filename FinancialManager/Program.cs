@@ -1,5 +1,4 @@
-using FinancialManager.InfraStructure.Context;
-using Microsoft.EntityFrameworkCore;
+using FinancialManager.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,17 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-//builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
-//builder.Services.AddScoped<IRegisterService, RegisterService>();
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<FinancialManagerDbContext>(
-        options => options.UseSqlServer(builder.Configuration.GetConnectionString("FinancerApiConnectionString")));
-
-
+builder.Services.AddInfraStrucuture(builder.Configuration);
+builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
 

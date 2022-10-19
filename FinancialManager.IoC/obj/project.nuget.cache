@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "8nNd+HaWnmKDSP6ob0/S00UJtTh5w1MsmGg0X8V274vxaaVTFkZO0HnrPN7KWdnHeWlCDFSvoFisAWTn7KWhIw==",
+  "dgSpecHash": "KCD4ur9opYmi5iNLcP7MYoi4OVKWgjeJR9Dp+ib8VEgNAqHyTNQnDJQc8+9COeoCpcYe9D5LjU1CkUpF72cVMg==",
   "success": true,
   "projectFilePath": "C:\\Dev\\Financer\\FinancialManager.IoC\\FinancialManager.IoC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\joao.santos\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\joao.santos\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\fluentvalidation\\11.2.2\\fluentvalidation.11.2.2.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "YAzmkgOW88hFEYXVOvmjRDnCvfy7CzXPihNZi5YfRSN8+IoFULFdhOoixmZOGMV/caEVbDql47P7qWHNZL2yhA==",
+  "dgSpecHash": "MAIfUfEm+PgLY/m5cvhaX/Zy1x7VSwCI9v9TCFXDGQeKMBGraYtT6BveypbitaAakkY/zllqBdZCSGtwCVvW7w==",
   "success": true,
   "projectFilePath": "C:\\Dev\\Financer\\FinancialManager\\FinancialManager.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\joao.santos\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\joao.santos\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\fluentvalidation\\11.2.2\\fluentvalidation.11.2.2.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\joao.santos\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
