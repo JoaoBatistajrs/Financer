@@ -32,7 +32,58 @@ namespace FinancialManager.Services.Service
             var register = _mapper.Map<Register>(registerDto);
             var data = await _registerRepository.CreateAsync(register);
 
-            return ResultService.Ok<RegisterDto>(_mapper.Map<RegisterDto>(data));
+            return ResultService.Ok(_mapper.Map<RegisterDto>(data));
+        }
+
+        public async Task<ResultService> DeleteAsync(int id)
+        {
+            var register = await _registerRepository.GetByIdAsync(id);
+
+            if (register == null)
+                return ResultService.Fail("Registro não econtrado.");
+
+            await _registerRepository.DeleteAsync(register);
+
+            return ResultService.Ok($"Registro id:{id} foi deletado.");
+        }
+
+        public async Task<ResultService<ICollection<RegisterDto>>> GetAsync()
+        {
+            var register = await _registerRepository.GetRegisterAsync();
+
+            return ResultService.Ok(_mapper.Map<ICollection<RegisterDto>>(register));
+        }
+
+        public async Task<ResultService<RegisterDto>> GetByIdAsync(int id)
+        {
+            var register = await _registerRepository.GetByIdAsync(id);
+            if (register == null)
+                return ResultService.Fail<RegisterDto>("Registro não encontrado!");
+            
+
+            return ResultService.Ok(_mapper.Map<RegisterDto>(register));
+        }
+
+        public async Task<ResultService> UpdateAsync(RegisterDto registerDto)
+        {
+            if (registerDto == null)
+                return ResultService.Fail("Registro deve ser informado.");
+
+            var validation = new RegisterDtoValidator().Validate(registerDto);
+
+            if (validation.IsValid)
+                return ResultService.RequestError("Problema com a validação dos campos.", validation);
+
+            var register = await _registerRepository.GetByIdAsync(registerDto.Id);
+
+            if (register == null)
+                ResultService.Fail("Registro não encontrado.");
+
+            register = _mapper.Map<RegisterDto, Register>(registerDto, register);
+
+            await _registerRepository.UpdateAsync(register);
+
+            return ResultService.Ok("Update realizado.");
         }
     }
 }

@@ -1,4 +1,5 @@
 using FinancialManager.IoC;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfraStrucuture(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
+builder.Services.AddMvc().AddJsonOptions(options => 
+    { options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
 
 var app = builder.Build();
 

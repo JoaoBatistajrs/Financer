@@ -1,6 +1,6 @@
-﻿using FinancialManager.Domain.Models;
+﻿using FinancialManager.Application.DTOs;
+using FinancialManager.Domain.Models;
 using FinancialManager.Services.Interface;
-using FinancialManager.Services.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialManager.Controllers
@@ -18,10 +18,60 @@ namespace FinancialManager.Controllers
 
 
         [HttpPost]
-        public IActionResult AddRegister(Register register)
+        public async Task<IActionResult> AddBank([FromBody] RegisterDto registerDto)
         {
-            
-            return Ok(register);
+            var result = await _registerService.CreateAsync(registerDto);
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAsync()
+        {
+            var result = await _registerService.GetAsync();
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetAsync(int id)
+        {
+            var result = await _registerService.GetByIdAsync(id);
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateBankAsync([FromBody] RegisterDto registerDto)
+        {
+            var result = await _registerService.UpdateAsync(registerDto);
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _registerService.DeleteAsync(id);
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
         }
 
     }

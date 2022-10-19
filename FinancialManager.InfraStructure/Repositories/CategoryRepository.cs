@@ -32,7 +32,7 @@ namespace FinancialManager.InfraStructure.Repositories
             return await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<ICollection<Category>> GetRegisterAsync()
+        public async Task<ICollection<Category>> GetCategoryAsync()
         {
             return await _context.Categories.ToListAsync();
         }

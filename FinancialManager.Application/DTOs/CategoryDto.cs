@@ -8,6 +8,5 @@ namespace FinancialManager.Application.DTOs
         public int Id { get; set; }
         public string Name { get; set; }
         public ExpenseTypeEnum Type { get; set; }
-        public ICollection<Register> Registers { get; set; }
     }
 }

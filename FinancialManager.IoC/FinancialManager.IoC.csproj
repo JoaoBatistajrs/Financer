@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FinancialManager.Application\FinancialManager.Application.csproj" />
     <ProjectReference Include="..\FinancialManager.Domain\FinancialManager.Domain.csproj" />
     <ProjectReference Include="..\FinancialManager.InfraStructure\FinancialManager.InfraStructure.csproj" />

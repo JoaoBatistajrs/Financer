@@ -9,6 +9,8 @@ namespace FinancialManager.Application.Mappers
         public DtoToDomainMapping()
         {
             CreateMap<RegisterDto, Register>();
+            CreateMap<BankDto, Bank>();
+            CreateMap<CategoryDto, Category>();
         }
     }
 }

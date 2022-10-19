@@ -1,7 +1,6 @@
-﻿using FinancialManager.InfraStructure.Context;
-using FinancialManager.Domain.Models;
+﻿using FinancialManager.Application.DTOs;
+using FinancialManager.Application.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FinancialManager.Controllers
 {
@@ -9,48 +8,68 @@ namespace FinancialManager.Controllers
     [ApiController]
     public class BanksController : ControllerBase
     {
-        private readonly FinancialManagerDbContext dbContext;
+        private readonly IBankService _bankService;
 
-        public BanksController(FinancialManagerDbContext dbContext)
+        public BanksController(IBankService service)
         {
-            this.dbContext = dbContext;
+            _bankService = service;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBankAsync([FromBody] BankDto bankDto)
+        {
+            var result = await _bankService.CreateAsync(bankDto);
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBanks()
+        public async Task<IActionResult> GetAsync()
         {
-            return Ok(await dbContext.Banks.ToListAsync());
+            var result = await _bankService.GetAsync();
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
         }
 
         [HttpGet]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> GetBank([FromRoute] Guid id)
+        [Route("{id}")]
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var bank = await dbContext.Banks.FindAsync(id);
+            var result = await _bankService.GetByIdAsync(id);
 
-            if (bank != null)
-            {
-                return Ok(bank);
+            if (result.IsSuccess)
+                return Ok(result);
 
-            }
-
-            return NotFound();
+            return BadRequest(result);
         }
 
-        [HttpDelete]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> DeleteBank([FromRoute] Guid id)
+        [HttpPut]
+        public async Task<IActionResult> UpdateBankAsync([FromBody] BankDto bankDto)
         {
-            var bank = await dbContext.Banks.FindAsync(id);
+            var result = await _bankService.UpdateAsync(bankDto);
 
-            if (bank != null)
-            {
-                dbContext.Remove(bank);
-                await dbContext.SaveChangesAsync();
-                return Ok(bank);
-            }
+            if (result.IsSuccess)
+                return Ok(result);
 
-            return NotFound();
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _bankService.DeleteAsync(id);
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
         }
     }
 }

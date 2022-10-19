@@ -1,4 +1,6 @@
-﻿using FinancialManager.InfraStructure.Context;
+﻿using FinancialManager.Application.DTOs;
+using FinancialManager.Application.Services.Interface;
+using FinancialManager.Application.Services.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialManager.Controllers
@@ -7,42 +9,68 @@ namespace FinancialManager.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly FinancialManagerDbContext dbContext;
+        private readonly ICategoryService _categoryService;
 
-        public CategoriesController(FinancialManagerDbContext dbContext)
+        public CategoriesController(ICategoryService service)
         {
-            this.dbContext = dbContext;
+            _categoryService = service;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBank([FromBody] CategoryDto categoryDto)
+        {
+            var result = await _categoryService.CreateAsync(categoryDto);
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
         }
 
         [HttpGet]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> GetCategory([FromRoute] Guid id)
+        public async Task<IActionResult> GetAsync()
         {
-            var category = await dbContext.Categories.FindAsync(id);
+            var result = await _categoryService.GetAsync();
 
-            if (category != null)
-            {
-                return Ok(category);
+            if (result.IsSuccess)
+                return Ok(result);
 
-            }
-
-            return NotFound();
+            return BadRequest(result);
         }
 
-        [HttpDelete]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var category = await dbContext.Categories.FindAsync(id);
+            var result = await _categoryService.GetByIdAsync(id);
 
-            if (category != null)
-            {
-                dbContext.Remove(category);
-                await dbContext.SaveChangesAsync();
-                return Ok(category);
-            }
+            if (result.IsSuccess)
+                return Ok(result);
 
-            return NotFound();
+            return BadRequest(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateBankAsync([FromBody] CategoryDto categoryDto)
+        {
+            var result = await _categoryService.UpdateAsync(categoryDto);
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _categoryService.DeleteAsync(id);
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
         }
     }
 }

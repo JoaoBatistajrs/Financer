@@ -2,7 +2,7 @@
 
 namespace FinancialManager.Application.DTOs.Validations
 {
-    public class BankDtoValidator : AbstractValidator<CategoryDto>
+    public class BankDtoValidator : AbstractValidator<BankDto>
     {
         public BankDtoValidator()
         {
@@ -11,10 +11,6 @@ namespace FinancialManager.Application.DTOs.Validations
                 .NotNull()
                 .WithMessage("Nome precisa ser informada!");
 
-            RuleFor(x => x.AccountType)
-                .NotEmpty()
-                .NotNull()
-                .WithMessage("Tipo da conta precisa ser informado!");
         }
     }
 }

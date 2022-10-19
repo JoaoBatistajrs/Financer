@@ -4,7 +4,7 @@ namespace FinancialManager.Domain.Repositories.Interface
 {
     public interface IBankRepository
     {
-        Task<ICollection<Bank>> GetRegisterAsync();
+        Task<ICollection<Bank>> GetBankAsync();
         Task<Bank> GetByIdAsync(int id);
         Task<Bank> CreateAsync(Bank bank);
         Task UpdateAsync(Bank bank);

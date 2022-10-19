@@ -32,7 +32,7 @@ namespace FinancialManager.InfraStructure.Repositories
             return await _context.Banks.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<ICollection<Bank>> GetRegisterAsync()
+        public async Task<ICollection<Bank>> GetBankAsync()
         {
             return await _context.Banks.ToListAsync();
         }
