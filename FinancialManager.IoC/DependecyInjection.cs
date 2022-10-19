@@ -1,4 +1,6 @@
 ﻿using FinancialManager.Application.Mappers;
+using FinancialManager.Application.Services.Interface;
+using FinancialManager.Application.Services.Service;
 using FinancialManager.Domain.Repositories.Interface;
 using FinancialManager.InfraStructure.Context;
 using FinancialManager.InfraStructure.Repositories;
@@ -16,7 +18,9 @@ namespace FinancialManager.IoC
         {
             services.AddDbContext<FinancialManagerDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("FinancerApiConnectionString")));
             services.AddScoped<IRegisterRepository, RegisterRepository>();
-            
+            services.AddScoped<IBankRepository, BankRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
             return services;
         }
 
@@ -24,6 +28,8 @@ namespace FinancialManager.IoC
         {
             services.AddAutoMapper(typeof(DomainToDtoMapping));
             services.AddScoped<IRegisterService, RegisterService>();
+            services.AddScoped<IBankService, BankService>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
             return services;
         }

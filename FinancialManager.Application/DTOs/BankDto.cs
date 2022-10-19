@@ -3,7 +3,7 @@ using FinancialManager.Domain.Models;
 
 namespace FinancialManager.Application.DTOs
 {
-    public class BankDto
+    public class CategoryDto
     {
         public int Id { get; set; }
         public string? Name { get; set; }
