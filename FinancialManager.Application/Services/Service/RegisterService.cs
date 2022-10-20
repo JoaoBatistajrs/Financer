@@ -55,21 +55,21 @@ namespace FinancialManager.Services.Service
             return ResultService.Ok($"Registro id:{id} foi deletado.");
         }
 
-        public async Task<ResultService<ICollection<RegisterDto>>> GetAsync()
+        public async Task<ResultService<ICollection<RegisterDetailDto>>> GetAsync()
         {
             var register = await _registerRepository.GetRegistersAsync();
 
-            return ResultService.Ok(_mapper.Map<ICollection<RegisterDto>>(register));
+            return ResultService.Ok(_mapper.Map<ICollection<RegisterDetailDto>>(register));
         }
 
-        public async Task<ResultService<RegisterDto>> GetByIdAsync(int id)
+        public async Task<ResultService<RegisterDetailDto>> GetByIdAsync(int id)
         {
             var register = await _registerRepository.GetByIdAsync(id);
             if (register == null)
-                return ResultService.Fail<RegisterDto>("Registro não encontrado!");
+                return ResultService.Fail<RegisterDetailDto>("Registro não encontrado!");
             
 
-            return ResultService.Ok(_mapper.Map<RegisterDto>(register));
+            return ResultService.Ok(_mapper.Map<RegisterDetailDto>(register));
         }
 
         public async Task<ResultService> UpdateAsync(RegisterDto registerDto)

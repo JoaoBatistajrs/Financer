@@ -51,28 +51,27 @@ namespace FinancialManager.Controllers
             return BadRequest(result);
         }
 
-        //[HttpPut]
-        //public async Task<IActionResult> UpdateBankAsync([FromBody] RegisterDto registerDto)
-        //{
-        //    var result = await _registerService.UpdateAsync(registerDto);
+        [HttpPut]
+        public async Task<IActionResult> UpdateBankAsync([FromBody] RegisterDto registerDto)
+        {
+            var result = await _registerService.UpdateAsync(registerDto);
 
-        //    if (result.IsSuccess)
-        //        return Ok(result);
+            if (result.IsSuccess)
+                return Ok(result);
 
-        //    return BadRequest(result);
-        //}
+            return BadRequest(result);
+        }
 
-        //[HttpDelete]
-        //[Route("{id}")]
-        //public async Task<IActionResult> DeleteAsync(int id)
-        //{
-        //    var result = await _registerService.DeleteAsync(id);
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _registerService.DeleteAsync(id);
 
-        //    if (result.IsSuccess)
-        //        return Ok(result);
+            if (result.IsSuccess)
+                return Ok(result);
 
-        //    return BadRequest(result);
-        //}
-
+            return BadRequest(result);
+        }
     }
 }
