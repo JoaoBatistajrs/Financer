@@ -29,14 +29,41 @@ namespace FinancialManager.InfraStructure.Repositories
 
         public async Task<Register> GetByIdAsync(int id)
         {
-            return await _context.Registers.FirstOrDefaultAsync(x => x.Id == id);
+            var register = await _context.Registers
+                            .Include(x => x.Bank)
+                            .Include(x => x.Category)
+                            .FirstOrDefaultAsync(x => x.Id == id);
+
+            return register;
         }
 
-        public async Task<ICollection<Register>> GetRegisterAsync()
+        public async Task<ICollection<Register>> GetByBankIdAsync(int bankId)
         {
-            return await _context.Registers.ToListAsync();
+            return await _context.Registers
+                            .Include(x => x.Bank)
+                            .Include(x => x.Category)
+                            .Where(x => x.BankId == bankId).ToListAsync();
+
         }
 
+        public async Task<ICollection<Register>> GetByCategoryIdAsync(int categoryId)
+        {
+            return await _context.Registers
+                            .Include(x => x.Bank)
+                            .Include(x => x.Category)
+                            .Where(x => x.CategoryId == categoryId).ToListAsync();
+
+
+        }
+
+        public async Task<ICollection<Register>> GetRegistersAsync()
+        {
+            return await _context.Registers
+                            .Include(x => x.Bank)
+                            .Include(x => x.Category)
+                            .ToListAsync();
+        }
+    
         public async Task UpdateAsync(Register register)
         {
             _context.Update(register);

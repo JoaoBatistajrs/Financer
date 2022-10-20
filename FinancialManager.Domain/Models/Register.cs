@@ -12,8 +12,8 @@ namespace FinancialManager.Domain.Models
         public int CategoryId { get; set; }
         public decimal Amount { get; set; }
         public RegisterTypeEnum RegisterType { get; set; }
-        public virtual Bank Bank { get; set; }
-        public virtual Category Category { get; set; }
+        public  Bank Bank { get; set; }
+        public  Category Category { get; set; }
 
         public Register(string description, DateTime date, int bankId, int categoryId, decimal amount, RegisterTypeEnum registerType)
         {

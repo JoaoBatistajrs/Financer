@@ -1,5 +1,5 @@
 ﻿using FinancialManager.Application.DTOs;
-using FinancialManager.Domain.Models;
+using FinancialManager.Application.Services.Service;
 using FinancialManager.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,12 +20,12 @@ namespace FinancialManager.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBank([FromBody] RegisterDto registerDto)
         {
-            var result = await _registerService.CreateAsync(registerDto);
+                var result = await _registerService.CreateAsync(registerDto);
 
-            if (result.IsSuccess)
-                return Ok(result);
+                if (result.IsSuccess)
+                    return Ok(result);
 
-            return BadRequest(result);
+                return BadRequest(result);
         }
 
         [HttpGet]
@@ -51,28 +51,28 @@ namespace FinancialManager.Controllers
             return BadRequest(result);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateBankAsync([FromBody] RegisterDto registerDto)
-        {
-            var result = await _registerService.UpdateAsync(registerDto);
+        //[HttpPut]
+        //public async Task<IActionResult> UpdateBankAsync([FromBody] RegisterDto registerDto)
+        //{
+        //    var result = await _registerService.UpdateAsync(registerDto);
 
-            if (result.IsSuccess)
-                return Ok(result);
+        //    if (result.IsSuccess)
+        //        return Ok(result);
 
-            return BadRequest(result);
-        }
+        //    return BadRequest(result);
+        //}
 
-        [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
-        {
-            var result = await _registerService.DeleteAsync(id);
+        //[HttpDelete]
+        //[Route("{id}")]
+        //public async Task<IActionResult> DeleteAsync(int id)
+        //{
+        //    var result = await _registerService.DeleteAsync(id);
 
-            if (result.IsSuccess)
-                return Ok(result);
+        //    if (result.IsSuccess)
+        //        return Ok(result);
 
-            return BadRequest(result);
-        }
+        //    return BadRequest(result);
+        //}
 
     }
 }

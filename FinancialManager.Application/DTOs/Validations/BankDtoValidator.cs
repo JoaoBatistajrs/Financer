@@ -10,7 +10,6 @@ namespace FinancialManager.Application.DTOs.Validations
                 .NotEmpty()
                 .NotNull()
                 .WithMessage("Nome precisa ser informada!");
-
         }
     }
 }

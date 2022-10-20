@@ -9,5 +9,6 @@ namespace FinancialManager.Domain.Repositories.Interface
         Task<Category> CreateAsync(Category category);
         Task UpdateAsync(Category category);
         Task DeleteAsync(Category category);
+        Task<int> GetIdByName(string name);
     }
 }

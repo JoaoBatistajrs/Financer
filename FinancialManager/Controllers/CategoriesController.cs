@@ -1,6 +1,5 @@
 ﻿using FinancialManager.Application.DTOs;
 using FinancialManager.Application.Services.Interface;
-using FinancialManager.Application.Services.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialManager.Controllers
@@ -61,7 +60,7 @@ namespace FinancialManager.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {

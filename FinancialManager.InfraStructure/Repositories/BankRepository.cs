@@ -42,5 +42,10 @@ namespace FinancialManager.InfraStructure.Repositories
             _context.Update(bank);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<int> GetIdByName(string name)
+        {
+            return (await _context.Banks.FirstOrDefaultAsync(x => x.Name == name))?.Id ?? 0;
+        }
     }
 }

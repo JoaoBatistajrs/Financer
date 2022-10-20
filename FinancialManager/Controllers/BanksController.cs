@@ -39,7 +39,7 @@ namespace FinancialManager.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             var result = await _bankService.GetByIdAsync(id);
 
@@ -60,7 +60,7 @@ namespace FinancialManager.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {

@@ -11,11 +11,15 @@ namespace FinancialManager.Services.Service
     public class RegisterService : IRegisterService
     {
         private readonly IRegisterRepository _registerRepository;
+        private readonly IBankRepository _bankRepository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
 
-        public RegisterService(IRegisterRepository registerRepository, IMapper mapper)
+        public RegisterService(IRegisterRepository registerRepository, IBankRepository bankRepository, ICategoryRepository categoryRepository, IMapper mapper)
         {
             _registerRepository = registerRepository;
+            _bankRepository = bankRepository;
+            _categoryRepository = categoryRepository;
             _mapper = mapper;
         }
 
@@ -29,10 +33,14 @@ namespace FinancialManager.Services.Service
             if (!result.IsValid)
                 return ResultService.RequestError<RegisterDto>("Erro de Validação!", result);
 
-            var register = _mapper.Map<Register>(registerDto);
-            var data = await _registerRepository.CreateAsync(register);
+            var bankId = await _bankRepository.GetIdByName(registerDto.BankName);
+            var categoryId = await _categoryRepository.GetIdByName(registerDto.CategoryName);
+            var register = new Register(registerDto.Description, registerDto.Date, bankId, categoryId, registerDto.Amount, registerDto.RegisterType);
 
-            return ResultService.Ok(_mapper.Map<RegisterDto>(data));
+            var data = await _registerRepository.CreateAsync(register);
+            registerDto.Id = data.Id;
+
+            return ResultService.Ok(registerDto);
         }
 
         public async Task<ResultService> DeleteAsync(int id)
@@ -49,7 +57,7 @@ namespace FinancialManager.Services.Service
 
         public async Task<ResultService<ICollection<RegisterDto>>> GetAsync()
         {
-            var register = await _registerRepository.GetRegisterAsync();
+            var register = await _registerRepository.GetRegistersAsync();
 
             return ResultService.Ok(_mapper.Map<ICollection<RegisterDto>>(register));
         }

@@ -2,7 +2,7 @@
 
 namespace FinancialManager.Application.DTOs
 {
-    public class RegisterDto
+    public class RegisterDetailDto
     {
         public int Id { get; set; }
         public string Description { get; set; }

@@ -12,14 +12,18 @@ namespace FinancialManager.Application.DTOs.Validations
                 .WithMessage("Descrição precisa ser informada!");
 
             RuleFor(x => x.Amount)
-                .NotEmpty()
-                .NotNull()
-                .WithMessage("Total precisa ser informado!");
+                .GreaterThan(0)
+                .WithMessage("Valor precisa ser maior que zero!");
 
-            RuleFor(x => x.CategoryId)
+            RuleFor(x => x.CategoryName)
                 .NotEmpty()
                 .NotNull()
                 .WithMessage("Categoria precisa ser informada!");
+
+            RuleFor(x => x.BankName)
+                .NotEmpty()
+                .NotNull()
+                .WithMessage("Banco precisa ser informado!");
         }
     }
 }
