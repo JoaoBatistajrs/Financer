@@ -1,7 +1,9 @@
 ﻿using FinancialManager.Application.Mappers;
 using FinancialManager.Application.Services.Interface;
 using FinancialManager.Application.Services.Service;
+using FinancialManager.Domain.Authentication;
 using FinancialManager.Domain.Repositories.Interface;
+using FinancialManager.InfraStructure.Authentication;
 using FinancialManager.InfraStructure.Context;
 using FinancialManager.InfraStructure.Repositories;
 using FinancialManager.Services.Interface;
@@ -20,6 +22,9 @@ namespace FinancialManager.IoC
             services.AddScoped<IRegisterRepository, RegisterRepository>();
             services.AddScoped<IBankRepository, BankRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ITokenGenerator, TokenGenerator>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }
@@ -30,6 +35,7 @@ namespace FinancialManager.IoC
             services.AddScoped<IRegisterService, RegisterService>();
             services.AddScoped<IBankService, BankService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

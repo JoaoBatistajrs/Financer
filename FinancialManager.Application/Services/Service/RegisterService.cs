@@ -14,13 +14,14 @@ namespace FinancialManager.Services.Service
         private readonly IBankRepository _bankRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
-
-        public RegisterService(IRegisterRepository registerRepository, IBankRepository bankRepository, ICategoryRepository categoryRepository, IMapper mapper)
+        private readonly IUnitOfWork _unitOfWork;
+        public RegisterService(IRegisterRepository registerRepository, IBankRepository bankRepository, ICategoryRepository categoryRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _registerRepository = registerRepository;
             _bankRepository = bankRepository;
             _categoryRepository = categoryRepository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<ResultService<RegisterDto>> CreateAsync(RegisterDto registerDto)

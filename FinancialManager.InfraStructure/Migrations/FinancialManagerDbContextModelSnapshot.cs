@@ -103,6 +103,27 @@ namespace FinancialManager.InfraStructure.Migrations
                     b.ToTable("Registers");
                 });
 
+            modelBuilder.Entity("FinancialManager.Domain.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassWord")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("users");
+                });
+
             modelBuilder.Entity("FinancialManager.Domain.Models.Register", b =>
                 {
                     b.HasOne("FinancialManager.Domain.Models.Bank", "Bank")

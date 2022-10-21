@@ -71,3 +71,5 @@ C:\Dev\Financer\FinancialManager\obj\Debug\net6.0\ref\FinancialManager.Api.dll
 C:\Dev\Financer\FinancialManager\bin\Debug\net6.0\AutoMapper.dll
 C:\Dev\Financer\FinancialManager\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Dev\Financer\FinancialManager\bin\Debug\net6.0\FluentValidation.dll
+C:\Dev\Financer\FinancialManager\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Dev\Financer\FinancialManager\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
