@@ -1,4 +1,5 @@
-﻿using FinancialManager.Domain.Models;
+﻿using FinancialManager.Domain.FiltersDb;
+using FinancialManager.Domain.Models;
 
 namespace FinancialManager.Domain.Repositories.Interface
 {
@@ -9,6 +10,7 @@ namespace FinancialManager.Domain.Repositories.Interface
         Task<Bank> CreateAsync(Bank bank);
         Task UpdateAsync(Bank bank);
         Task DeleteAsync(Bank bank);
-        Task<int> GetIdByName(string name); 
+        Task<int> GetIdByName(string name);
+        Task<PagedBaseResponse<Bank>> GetPagedAsync(BankFilterDb request);
     }
 }

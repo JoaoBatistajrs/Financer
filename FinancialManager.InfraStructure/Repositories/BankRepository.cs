@@ -1,4 +1,5 @@
-﻿using FinancialManager.Domain.Models;
+﻿using FinancialManager.Domain.FiltersDb;
+using FinancialManager.Domain.Models;
 using FinancialManager.Domain.Repositories.Interface;
 using FinancialManager.InfraStructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,15 @@ namespace FinancialManager.InfraStructure.Repositories
         public async Task<int> GetIdByName(string name)
         {
             return (await _context.Banks.FirstOrDefaultAsync(x => x.Name == name))?.Id ?? 0;
+        }
+
+        public async Task<PagedBaseResponse<Bank>> GetPagedAsync(BankFilterDb request)
+        {
+            var bank = _context.Banks.AsQueryable();
+            if(!string.IsNullOrEmpty(request.Name))
+                bank = bank.Where(x => x.Name.Contains(request.Name));
+
+            return await PagedBaseResponseHelper.GetResponseAsync<PagedBaseResponse<Bank>, Bank>(bank, request);
         }
     }
 }

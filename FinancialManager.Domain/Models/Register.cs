@@ -36,9 +36,15 @@ namespace FinancialManager.Domain.Models
             RegisterType = registerType;
         }
 
-        public Register()
+        public void Edit(int id, string description, DateTime date, int bankId, int categoryId, decimal amount, RegisterTypeEnum registerType)
         {
-
+            Id = id;
+            Description = description;
+            Date = date;
+            BankId = bankId;
+            CategoryId = categoryId;
+            Amount = amount;
+            RegisterType = registerType;
         }
     }
 }

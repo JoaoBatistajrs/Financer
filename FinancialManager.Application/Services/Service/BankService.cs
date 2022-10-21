@@ -2,6 +2,7 @@
 using FinancialManager.Application.DTOs;
 using FinancialManager.Application.DTOs.Validations;
 using FinancialManager.Application.Services.Interface;
+using FinancialManager.Domain.FiltersDb;
 using FinancialManager.Domain.Models;
 using FinancialManager.Domain.Repositories.Interface;
 
@@ -60,6 +61,14 @@ namespace FinancialManager.Application.Services.Service
                 return ResultService.Fail<BankDto>("Banco não encontrado!");
 
             return ResultService.Ok(_mapper.Map<BankDto>(bank));
+        }
+
+        public async Task<ResultService<PagedBaseReponseDto<BankDto>>> GetPagedAsync(BankFilterDb bankFilterDb)
+        {
+            var bankPaged = await _bankRepository.GetPagedAsync(bankFilterDb);
+            var result = new PagedBaseReponseDto<BankDto>(bankPaged.TotalRegisters, _mapper.Map<List<BankDto>>(bankPaged.Data));
+
+            return ResultService.Ok(result);
         }
 
         public async Task<ResultService> UpdateAsync(BankDto bankDto)

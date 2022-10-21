@@ -1,5 +1,6 @@
 ﻿using FinancialManager.Application.DTOs;
 using FinancialManager.Application.Services.Interface;
+using FinancialManager.Domain.FiltersDb;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialManager.Controllers
@@ -65,6 +66,18 @@ namespace FinancialManager.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _bankService.DeleteAsync(id);
+
+            if (result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet]
+        [Route("paged")]
+        public async Task<IActionResult> GetPagedAsync([FromQuery] BankFilterDb bankFilterDb)
+        {
+            var result = await _bankService.GetPagedAsync(bankFilterDb);
 
             if (result.IsSuccess)
                 return Ok(result);

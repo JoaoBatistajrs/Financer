@@ -87,7 +87,11 @@ namespace FinancialManager.Services.Service
             if (register == null)
                 ResultService.Fail("Registro não encontrado.");
 
-            register = _mapper.Map<RegisterDto, Register>(registerDto, register);
+            var bankId = await _bankRepository.GetIdByName(registerDto.BankName);
+            var categoryId = await _categoryRepository.GetIdByName(registerDto.CategoryName);
+            
+            register.Edit(register.Id, register.Description, register.Date, bankId, categoryId, register.Amount, register.RegisterType);
+
 
             await _registerRepository.UpdateAsync(register);
 
