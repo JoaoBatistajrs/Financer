@@ -5,11 +5,6 @@ namespace FinancialManager.Domain.Models
 {
     public class Category : IEntityBase, ICategoryRepository
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public ExpenseTypeEnum Type { get; set; }
-        public ICollection<Register> Registers { get; set; }
-
         public Category(string name, ExpenseTypeEnum type)
         {
             Name = name;
@@ -23,5 +18,10 @@ namespace FinancialManager.Domain.Models
             Name = name;
             Type = type;
         }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public ExpenseTypeEnum Type { get; set; }
+        public ICollection<Register> Registers { get; set; }
     }
 }
