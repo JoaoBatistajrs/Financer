@@ -1,6 +1,5 @@
 ﻿using FinancialManager.Application.DTOs;
 using FinancialManager.Application.Services.Interface;
-using FinancialManager.Domain.FiltersDb;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialManager.Controllers
@@ -51,9 +50,9 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBankAsync([FromBody] BankDto bankDto)
+        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] BankDto bankDto)
         {
-            var result = await _bankService.UpdateAsync(bankDto);
+            var result = await _bankService.UpdateAsync(id, bankDto);
 
             if (result.IsSuccess)
                 return Ok(result);
@@ -73,16 +72,5 @@ namespace FinancialManager.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
-        [Route("paged")]
-        public async Task<IActionResult> GetPagedAsync([FromQuery] BankFilterDb bankFilterDb)
-        {
-            var result = await _bankService.GetPagedAsync(bankFilterDb);
-
-            if (result.IsSuccess)
-                return Ok(result);
-
-            return BadRequest(result);
-        }
     }
 }

@@ -2,7 +2,6 @@
 using FinancialManager.Application.DTOs;
 using FinancialManager.Application.DTOs.Validations;
 using FinancialManager.Application.Services.Interface;
-using FinancialManager.Domain.FiltersDb;
 using FinancialManager.Domain.Models;
 using FinancialManager.Domain.Repositories.Interface;
 
@@ -10,12 +9,12 @@ namespace FinancialManager.Application.Services.Service
 {
     public class BankService : IBankService
     {
-        private readonly IBankRepository _bankRepository;
+        private readonly IEntitiesRepository<Bank> _repository;
         private readonly IMapper _mapper;
 
-        public BankService(IBankRepository bankRepository, IMapper mapper)
+        public BankService(IEntitiesRepository<Bank> bankRepository, IMapper mapper)
         {
-            _bankRepository = bankRepository;
+            _repository = bankRepository;
             _mapper = mapper;
         }
 
@@ -30,48 +29,40 @@ namespace FinancialManager.Application.Services.Service
                 return ResultService.RequestError<BankDto>("Erro de Validação!", result);
 
             var bank = _mapper.Map<Bank>(bankDto);
-            var data = await _bankRepository.CreateAsync(bank);
+            var data = await _repository.CreateAsync(bank);
 
             return ResultService.Ok(_mapper.Map<BankDto>(data));
         }
 
         public async Task<ResultService> DeleteAsync(int id)
         {
-            var bank = await _bankRepository.GetByIdAsync(id);
+            var bank = await _repository.GetByIdAsync(id);
 
             if (bank == null)
                 return ResultService.Fail("Pessoa não econtrada.");
 
-            await _bankRepository.DeleteAsync(bank);
+            await _repository.DeleteAsync(bank);
            
             return ResultService.Ok($"Pessoa do id:{id} foi deletada.");
         }
 
         public async Task<ResultService<ICollection<BankDto>>> GetAsync()
         {
-            var bank = await _bankRepository.GetBankAsync();
+            var bank = await _repository.GetAsync();
             
             return ResultService.Ok(_mapper.Map<ICollection<BankDto>>(bank));
         }
 
         public async Task<ResultService<BankDto>> GetByIdAsync(int id)
         {
-            var bank = await _bankRepository.GetByIdAsync(id);
+            var bank = await _repository.GetByIdAsync(id);
             if (bank == null)
                 return ResultService.Fail<BankDto>("Banco não encontrado!");
 
             return ResultService.Ok(_mapper.Map<BankDto>(bank));
         }
 
-        public async Task<ResultService<PagedBaseReponseDto<BankDto>>> GetPagedAsync(BankFilterDb bankFilterDb)
-        {
-            var bankPaged = await _bankRepository.GetPagedAsync(bankFilterDb);
-            var result = new PagedBaseReponseDto<BankDto>(bankPaged.TotalRegisters, _mapper.Map<List<BankDto>>(bankPaged.Data));
-
-            return ResultService.Ok(result);
-        }
-
-        public async Task<ResultService> UpdateAsync(BankDto bankDto)
+        public async Task<ResultService> UpdateAsync(int id, BankDto bankDto)
         {
             if (bankDto == null)
                 return ResultService.Fail("Banco deve ser informado.");
@@ -81,14 +72,14 @@ namespace FinancialManager.Application.Services.Service
             if (validation.IsValid)
                 return ResultService.RequestError("Problema com a validação dos campos.", validation);
 
-            var bank = await _bankRepository.GetByIdAsync(bankDto.Id);
+            var bank = await _repository.GetByIdAsync(bankDto.Id);
 
             if(bank == null)
                 ResultService.Fail("Banco não encontrado.");
 
             bank = _mapper.Map<BankDto, Bank>(bankDto, bank);
 
-            await _bankRepository.UpdateAsync(bank);
+            await _repository.UpdateAsync(id, bank);
 
             return ResultService.Ok("Update realizado.");
         }

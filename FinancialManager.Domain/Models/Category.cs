@@ -3,7 +3,7 @@ using FinancialManager.Domain.Interfaces;
 
 namespace FinancialManager.Domain.Models
 {
-    public class Category : IEntityBase, ICategoryRepository
+    public class Category : IEntityBase, ICategory
     {
         public int Id { get; set; }
         public string Name { get; set; }

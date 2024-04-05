@@ -9,12 +9,12 @@ namespace FinancialManager.Application.Services.Service
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IEntitiesRepository<Category> _repository;
         private readonly IMapper _mapper; 
 
-        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
+        public CategoryService(IEntitiesRepository<Category> categoryRepository, IMapper mapper)
         {
-            _categoryRepository = categoryRepository;
+            _repository = categoryRepository;
             _mapper = mapper;
         }
 
@@ -29,40 +29,40 @@ namespace FinancialManager.Application.Services.Service
                 return ResultService.RequestError<CategoryDto>("Erro de Validação!", result);
 
             var category = _mapper.Map<Category>(categoryDto);
-            var data = await _categoryRepository.CreateAsync(category);
+            var data = await _repository.CreateAsync(category);
 
             return ResultService.Ok(_mapper.Map<CategoryDto>(data));
         }
 
         public async Task<ResultService> DeleteAsync(int id)
         {
-            var category = await _categoryRepository.GetByIdAsync(id);
+            var category = await _repository.GetByIdAsync(id);
 
             if (category == null)
                 return ResultService.Fail("Categoria não econtrada.");
 
-            await _categoryRepository.DeleteAsync(category);
+            await _repository.DeleteAsync(category);
 
             return ResultService.Ok($"Categoria id:{id} foi deletada.");
         }
 
         public async Task<ResultService<ICollection<CategoryDto>>> GetAsync()
         {
-            var category = await _categoryRepository.GetCategoryAsync();
+            var category = await _repository.GetAsync();
 
             return ResultService.Ok(_mapper.Map<ICollection<CategoryDto>>(category));
         }
 
         public async Task<ResultService<CategoryDto>> GetByIdAsync(int id)
         {
-            var category = await _categoryRepository.GetByIdAsync(id);
+            var category = await _repository.GetByIdAsync(id);
             if (category == null)
                 return ResultService.Fail<CategoryDto>("Categoria não encontrada!");
 
             return ResultService.Ok(_mapper.Map<CategoryDto>(category));
         }
 
-        public async Task<ResultService> UpdateAsync(CategoryDto categoryDto)
+        public async Task<ResultService> UpdateAsync(int id, CategoryDto categoryDto)
         {
             if (categoryDto == null)
                 return ResultService.Fail("Categoria deve ser informado.");
@@ -72,14 +72,14 @@ namespace FinancialManager.Application.Services.Service
             if (validation.IsValid)
                 return ResultService.RequestError("Problema com a validação dos campos.", validation);
 
-            var category = await _categoryRepository.GetByIdAsync(categoryDto.Id);
+            var category = await _repository.GetByIdAsync(categoryDto.Id);
 
             if (category == null)
                 ResultService.Fail("Categoria não encontrada.");
 
             category = _mapper.Map<CategoryDto, Category>(categoryDto, category);
 
-            await _categoryRepository.UpdateAsync(category);
+            await _repository.UpdateAsync(id, category);
 
             return ResultService.Ok("Update realizado.");
         }

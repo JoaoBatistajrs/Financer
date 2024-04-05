@@ -8,7 +8,7 @@ namespace FinancialManager.Application.Services.Interface
         Task<ResultService<CategoryDto>> CreateAsync(CategoryDto categoryDto);
         Task<ResultService<ICollection<CategoryDto>>> GetAsync();
         Task<ResultService<CategoryDto>> GetByIdAsync(int id);
-        Task<ResultService> UpdateAsync(CategoryDto categoryDto);
+        Task<ResultService> UpdateAsync(int id, CategoryDto categoryDto);
         Task<ResultService> DeleteAsync(int id);
     }
 }

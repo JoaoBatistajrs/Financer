@@ -50,9 +50,9 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBankAsync([FromBody] CategoryDto categoryDto)
+        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] CategoryDto categoryDto)
         {
-            var result = await _categoryService.UpdateAsync(categoryDto);
+            var result = await _categoryService.UpdateAsync(id, categoryDto);
 
             if (result.IsSuccess)
                 return Ok(result);

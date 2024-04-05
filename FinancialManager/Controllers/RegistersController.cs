@@ -1,5 +1,4 @@
 ﻿using FinancialManager.Application.DTOs;
-using FinancialManager.Application.Services.Service;
 using FinancialManager.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,9 +51,9 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBankAsync([FromBody] RegisterDto registerDto)
+        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] RegisterDto registerDto)
         {
-            var result = await _registerService.UpdateAsync(registerDto);
+            var result = await _registerService.UpdateAsync(id,registerDto);
 
             if (result.IsSuccess)
                 return Ok(result);

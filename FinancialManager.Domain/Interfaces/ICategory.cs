@@ -2,7 +2,7 @@
 
 namespace FinancialManager.Domain.Interfaces
 {
-    public interface ICategoryRepository
+    public interface ICategory
     {
         public string Name { get; set; }
         public ExpenseTypeEnum Type { get; set; }

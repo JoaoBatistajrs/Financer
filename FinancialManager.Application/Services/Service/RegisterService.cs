@@ -10,12 +10,12 @@ namespace FinancialManager.Services.Service
 {
     public class RegisterService : IRegisterService
     {
-        private readonly IRegisterRepository _registerRepository;
-        private readonly IBankRepository _bankRepository;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IEntitiesRepository<Register> _registerRepository;
+        private readonly IEntitiesRepository<Bank> _bankRepository;
+        private readonly IEntitiesRepository<Category> _categoryRepository;
         private readonly IMapper _mapper;
 
-        public RegisterService(IRegisterRepository registerRepository, IBankRepository bankRepository, ICategoryRepository categoryRepository, IMapper mapper)
+        public RegisterService(IEntitiesRepository<Register> registerRepository, IEntitiesRepository<Bank> bankRepository, IEntitiesRepository<Category> categoryRepository, IMapper mapper)
         {
             _registerRepository = registerRepository;
             _bankRepository = bankRepository;
@@ -33,9 +33,7 @@ namespace FinancialManager.Services.Service
             if (!result.IsValid)
                 return ResultService.RequestError<RegisterDto>("Erro de Validação!", result);
 
-            var bankId = await _bankRepository.GetIdByName(registerDto.BankName);
-            var categoryId = await _categoryRepository.GetIdByName(registerDto.CategoryName);
-            var register = new Register(registerDto.Description, registerDto.Date, bankId, categoryId, registerDto.Amount, registerDto.RegisterType);
+            var register = new Register(registerDto.Description, registerDto.Date, registerDto.BankId, registerDto.CategoryId, registerDto.Amount, registerDto.RegisterType);
 
             var data = await _registerRepository.CreateAsync(register);
             registerDto.Id = data.Id;
@@ -57,7 +55,7 @@ namespace FinancialManager.Services.Service
 
         public async Task<ResultService<ICollection<RegisterDetailDto>>> GetAsync()
         {
-            var register = await _registerRepository.GetRegistersAsync();
+            var register = await _registerRepository.GetAsync();
 
             return ResultService.Ok(_mapper.Map<ICollection<RegisterDetailDto>>(register));
         }
@@ -72,7 +70,7 @@ namespace FinancialManager.Services.Service
             return ResultService.Ok(_mapper.Map<RegisterDetailDto>(register));
         }
 
-        public async Task<ResultService> UpdateAsync(RegisterDto registerDto)
+        public async Task<ResultService> UpdateAsync(int id, RegisterDto registerDto)
         {
             if (registerDto == null)
                 return ResultService.Fail("Registro deve ser informado.");
@@ -87,13 +85,11 @@ namespace FinancialManager.Services.Service
             if (register == null)
                 ResultService.Fail("Registro não encontrado.");
 
-            var bankId = await _bankRepository.GetIdByName(registerDto.BankName);
-            var categoryId = await _categoryRepository.GetIdByName(registerDto.CategoryName);
             
-            register.Edit(register.Id, register.Description, register.Date, bankId, categoryId, register.Amount, register.RegisterType);
+            register.Edit(register.Id, register.Description, register.Date, registerDto.BankId, registerDto.CategoryId, register.Amount, register.RegisterType);
 
 
-            await _registerRepository.UpdateAsync(register);
+            await _registerRepository.UpdateAsync(id, register);
 
             return ResultService.Ok("Update realizado.");
         }

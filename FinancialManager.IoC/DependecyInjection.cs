@@ -1,6 +1,7 @@
 ﻿using FinancialManager.Application.Mappers;
 using FinancialManager.Application.Services.Interface;
 using FinancialManager.Application.Services.Service;
+using FinancialManager.Domain.Models;
 using FinancialManager.Domain.Repositories.Interface;
 using FinancialManager.InfraStructure.Context;
 using FinancialManager.InfraStructure.Repositories;
@@ -17,9 +18,10 @@ namespace FinancialManager.IoC
         public static IServiceCollection AddInfraStrucuture(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<FinancialManagerDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("FinancerApiConnectionString")));
-            services.AddScoped<IRegisterRepository, RegisterRepository>();
-            services.AddScoped<IBankRepository, BankRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            services.AddScoped<IEntitiesRepository<Register>, EntitiesRepository<Register>> ();
+            services.AddScoped<IEntitiesRepository<Bank>, EntitiesRepository<Bank>>();
+            services.AddScoped<IEntitiesRepository<Category>, EntitiesRepository<Category>>();
 
             return services;
         }
