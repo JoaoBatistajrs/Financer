@@ -15,7 +15,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend", builder =>
         builder.WithOrigins(frontendUrl)
                .AllowAnyHeader()
-               .AllowAnyMethod());
+               .AllowAnyMethod()
+               .AllowCredentials()
+               .SetIsOriginAllowed(_ => true));
 });
 
 builder.Services.AddControllers();
@@ -24,8 +26,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddMvc().AddJsonOptions(options => 
-    { options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+builder.Services.AddMvc().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 
 var app = builder.Build();
@@ -41,7 +44,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseCors("AllowFrontend");
+app.UseCors("AllowFrontend"); // Certifique-se de que UseCors seja chamado antes de UseAuthorization
 
 app.UseAuthorization();
 

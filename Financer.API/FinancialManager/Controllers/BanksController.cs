@@ -1,6 +1,8 @@
 ﻿using FinancialManager.Application.DTOs;
 using FinancialManager.Application.Services.Interface;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinancialManager.Controllers
 {
@@ -18,12 +20,20 @@ namespace FinancialManager.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBankAsync([FromBody] BankDto bankDto)
         {
-            var result = await _bankService.CreateAsync(bankDto);
-
-            if (result.IsSuccess)
+            try
+            {
+                var result = await _bankService.CreateAsync(bankDto);
                 return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { Errors = ex.Errors });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
 
-            return BadRequest(result);
+            }
         }
 
         [HttpGet]
@@ -31,7 +41,7 @@ namespace FinancialManager.Controllers
         {
             var result = await _bankService.GetAsync();
 
-            if (result.IsSuccess)
+            if (result != null)
                 return Ok(result);
 
             return BadRequest(result);
@@ -43,34 +53,55 @@ namespace FinancialManager.Controllers
         {
             var result = await _bankService.GetByIdAsync(id);
 
-            if (result.IsSuccess)
+            if (result != null)
+            {
                 return Ok(result);
+            }
 
-            return BadRequest(result);
+            return NotFound();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] BankDto bankDto)
         {
-            var result = await _bankService.UpdateAsync(id, bankDto);
+            try
+            {
+                await _bankService.UpdateAsync(id, bankDto);
 
-            if (result.IsSuccess)
-                return Ok(result);
+                var updatedBank = await _bankService.GetByIdAsync(id);
 
-            return BadRequest(result);
+                if (updatedBank != null)
+                {
+                    return Ok(updatedBank);
+                }
+
+                return NotFound($"Bank with ID {id} not found.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+
+            }
         }
 
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var result = await _bankService.DeleteAsync(id);
+            try
+            {
+                var result = await _bankService.DeleteAsync(id);
 
-            if (result.IsSuccess)
-                return Ok(result);
+                if (!result)
+                    return NotFound();
 
-            return BadRequest(result);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+
+            }
         }
-
     }
 }

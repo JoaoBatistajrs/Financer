@@ -56,10 +56,17 @@ namespace FinancialManager.InfraStructure.Repositories
             return await _context.Set<T>().Where(filter).ToListAsync();
         }
 
-        public async Task DeleteAsync(T entity)
+        public async Task<bool> DeleteAsync(int id)
         {
-            _context.Remove(entity);
+            var result = await _context.Set<T>().FindAsync(id);
+
+            if (result == null)
+                return false;
+
+            _context.Remove(result);
             await _context.SaveChangesAsync();
+
+            return true;
         }
 
     }

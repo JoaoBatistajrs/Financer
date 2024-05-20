@@ -48,7 +48,7 @@ namespace FinancialManager.Services.Service
             if (register == null)
                 return ResultService.Fail("Registro não econtrado.");
 
-            await _registerRepository.DeleteAsync(register);
+            await _registerRepository.DeleteAsync(id);
 
             return ResultService.Ok($"Registro id:{id} foi deletado.");
         }

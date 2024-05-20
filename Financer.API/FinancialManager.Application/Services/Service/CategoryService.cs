@@ -41,7 +41,7 @@ namespace FinancialManager.Application.Services.Service
             if (category == null)
                 return ResultService.Fail("Categoria não econtrada.");
 
-            await _repository.DeleteAsync(category);
+            await _repository.DeleteAsync(id);
 
             return ResultService.Ok($"Categoria id:{id} foi deletada.");
         }

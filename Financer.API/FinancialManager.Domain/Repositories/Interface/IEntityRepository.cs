@@ -1,5 +1,4 @@
-﻿using FinancialManager.Domain.Models;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace FinancialManager.Domain.Repositories.Interface
 {
@@ -9,7 +8,7 @@ namespace FinancialManager.Domain.Repositories.Interface
         Task<T> GetByIdAsync(int id);
         Task<T> CreateAsync(T entity);
         Task UpdateAsync(int id, T entity);
-        Task DeleteAsync(T entity);
+        Task<bool> DeleteAsync(int id);
         Task<ICollection<T>> GetAsync(Expression<Func<T, bool>> filter);
     }
 }

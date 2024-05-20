@@ -8,12 +8,13 @@ import { environment } from '../shared/endpoints/endpoints';
 })
 export class ApiService {
 
-  private baseURL = environment;
+  private baseURL = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
   makeRequest(method: string, endpoint: string, body?: any): Observable<any> {
     const completeEndpoint = `${this.baseURL}/${endpoint}`;
+    console.log(completeEndpoint);
     return this.http.request<any>(method, completeEndpoint, { body })
       .pipe(
         catchError(this.handleError)
