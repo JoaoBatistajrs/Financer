@@ -5,14 +5,25 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddInfraStrucuture(builder.Configuration);
+builder.Services.AddServices(builder.Configuration);
+
+var frontendUrl = builder.Configuration["Frontend:Url"];
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", builder =>
+        builder.WithOrigins(frontendUrl)
+               .AllowAnyHeader()
+               .AllowAnyMethod());
+});
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddInfraStrucuture(builder.Configuration);
-builder.Services.AddServices(builder.Configuration);
 builder.Services.AddMvc().AddJsonOptions(options => 
     { options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
@@ -27,6 +38,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 
