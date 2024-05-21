@@ -1,0 +1,17 @@
+<mat-toolbar color="secondary" class="custom-toolbar">
+  <mat-toolbar-row>
+
+    <div class="logo-container">
+      <!-- <img src="/assets/logo.png" alt="Logo" height="60px"> -->
+    </div>
+
+    <button mat-icon-button (click)="onMenuButtonClick(sidenav)">
+      <mat-icon>{{ isLastPage ? 'first_page' : 'last_page' }}</mat-icon>
+    </button>
+
+    <span class="spacer"></span>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<app-sidenav #sidenav/>

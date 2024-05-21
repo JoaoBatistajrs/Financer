@@ -1,30 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { BankService } from '../../services/banks.service';
-import { Bank } from '../../models/bank';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
   standalone: true,
-  imports: [MatSidenavModule, MatButtonModule],
+  imports: [CommonModule, MatSidenavModule, MatIconModule, MatListModule, RouterOutlet, RouterLink],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.scss'
 })
-export class SidenavComponent implements OnInit {
-  showFiller = false;
-  bankData: Bank[] = [];
 
-  constructor(private bankService: BankService) { }
+export class SidenavComponent {
+  isOpen = true;
 
-  ngOnInit(): void {
-    this.bankService.getAll().subscribe({
-      next: data => {
-        console.log('Data received:', data);
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
+  navItems = [
+    { routerLink: '', icon: 'search', label: 'test' },
+    // { routerLink: '', icon: 'build', label: 'tes1' },
+    // { routerLink: '', icon: 'linear_scale', label: 'test2' },
+    // { routerLink: '', icon: 'settings', label: 'tes3' },
+    // { routerLink: '', icon: 'engineering', label: 'test4' },
+    // { routerLink: '', icon: 'lock', label: 'test5' }
+  ];
+
+  toggle() {
+    this.isOpen = !this.isOpen;
   }
 }
