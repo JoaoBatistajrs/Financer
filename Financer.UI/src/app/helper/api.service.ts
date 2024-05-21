@@ -1,7 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
-import { environment } from '../shared/endpoints/endpoints';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -12,43 +13,46 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  makeRequest(method: string, endpoint: string, body?: any): Observable<any> {
+  private makeRequest<T>(method: string, endpoint: string, body?: any): Observable<T> {
     const completeEndpoint = `${this.baseURL}/${endpoint}`;
-    console.log(completeEndpoint);
-    return this.http.request<any>(method, completeEndpoint, { body })
+    return this.http.request<T>(method, completeEndpoint, { body })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   get<T>(endpoint: string): Observable<T> {
-    return this.makeRequest('get', endpoint);
+    return this.makeRequest<T>('GET', endpoint);
   }
 
   post<T>(endpoint: string, body: any): Observable<T> {
-    return this.makeRequest('post', endpoint, body);
+    return this.makeRequest<T>('POST', endpoint, body);
   }
 
   delete<T>(endpoint: string): Observable<T> {
-    return this.makeRequest('delete', endpoint);
+    return this.makeRequest<T>('DELETE', endpoint);
   }
 
   put<T>(endpoint: string, body: any): Observable<T> {
-    return this.makeRequest('put', endpoint, body);
+    return this.makeRequest<T>('PUT', endpoint, body);
   }
 
   patch<T>(endpoint: string, body: any): Observable<T> {
-    return this.makeRequest('patch', endpoint, body);
+    return this.makeRequest<T>('PATCH', endpoint, body);
   }
 
   private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occurred!';
     if (error.status === 0) {
-      console.error('Could not connect to the server.');
+      errorMessage = 'Could not connect to the server. Please check if the server is running and the network is available.';
+    } else if (error.error instanceof ErrorEvent) {
+      // Client-side or network error occurred.
+      errorMessage = `A client-side or network error occurred: ${error.error.message}`;
     } else {
-      console.error(
-        `An error ocurred: ${error.status}, ${error.statusText}`
-      );
+      // Backend returned an unsuccessful response code.
+      errorMessage = `Backend returned code ${error.status}, body was: ${error.message}`;
     }
-    return throwError(() => new Error(error.error));
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }

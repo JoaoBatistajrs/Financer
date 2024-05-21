@@ -8,16 +8,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfraStrucuture(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
 
-var frontendUrl = builder.Configuration["Frontend:Url"];
+var frontendUrl = builder.Configuration.GetValue<string>($"Frontend:Url");
+Console.WriteLine(frontendUrl);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", builder =>
-        builder.WithOrigins(frontendUrl)
-               .AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowCredentials()
-               .SetIsOriginAllowed(_ => true));
+    options.AddPolicy(name: "AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins(frontendUrl)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+        });
 });
 
 builder.Services.AddControllers();
@@ -33,7 +36,7 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -44,7 +47,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseCors("AllowFrontend"); // Certifique-se de que UseCors seja chamado antes de UseAuthorization
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 

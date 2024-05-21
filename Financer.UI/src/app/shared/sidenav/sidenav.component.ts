@@ -18,14 +18,13 @@ export class SidenavComponent implements OnInit {
   constructor(private bankService: BankService) { }
 
   ngOnInit(): void {
-    this.bankService.getAll().subscribe(
-      (data: Bank[]) => {
-        this.bankData = data;
+    this.bankService.getAll().subscribe({
+      next: data => {
+        console.log('Data received:', data);
       },
-      (error) => {
-        console.error('Erro ao obter dados dos bancos', error);
+      error: error => {
+        console.error('There was an error!', error);
       }
-    );
-    console.log(this.bankData);
+    });
   }
 }
