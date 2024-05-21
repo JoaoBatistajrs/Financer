@@ -34,4 +34,12 @@ export class BankService {
     const url = `${this.endpoint}/${id}`;
     return this.apiService.delete<Bank>(url);
   }
+
+  getTableColumns(){
+    return ['name','agency'];
+  }
+
+  getColumnNames(){
+      return ['Bank', 'Agency'];
+  }
 }

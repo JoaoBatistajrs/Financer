@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
-import { SidenavComponent } from './shared/sidenav/sidenav.component';
+import { BankListComponent } from './pages/bank/bank.list/bank.list.component';
+
+
 
 export const routes: Routes = [
   //{ path: 'home', component: SidenavComponent  },
-  // { path: 'bank', component:   },
-
+  { path: 'bank', component:  BankListComponent },
 ];

@@ -46,10 +46,8 @@ export class ApiService {
     if (error.status === 0) {
       errorMessage = 'Could not connect to the server. Please check if the server is running and the network is available.';
     } else if (error.error instanceof ErrorEvent) {
-      // Client-side or network error occurred.
       errorMessage = `A client-side or network error occurred: ${error.error.message}`;
     } else {
-      // Backend returned an unsuccessful response code.
       errorMessage = `Backend returned code ${error.status}, body was: ${error.message}`;
     }
     console.error(errorMessage);

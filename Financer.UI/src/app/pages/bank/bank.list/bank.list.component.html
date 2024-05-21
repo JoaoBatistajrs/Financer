@@ -1,0 +1,17 @@
+<!-- <app-title title="Banks"></app-title> -->
+
+<div class="table-container">
+  <button class="custom-button" mat-raised-button color="warn" (click)="OnCreate()">
+    CREATE BANK
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <app-datatable
+    [dataColumns]="tableColumns"
+    [columnNames]="columnNames"
+    [dataToDisplay]="bankData"
+    [showManagementeColumn]="true"
+    (editItemClicked)="edit($event)"
+    (removeItemClicked)="remove($event)"
+  />
+</div>

@@ -1,0 +1,47 @@
+mat-card {
+  margin: 10px;
+  width: auto;
+}
+
+.table-container {
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+}
+
+table {
+  width: 40%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: whitesmoke;
+}
+
+.button-container {
+  display: flex;
+}
+
+.button-spacing {
+  margin-right: 8px;
+}

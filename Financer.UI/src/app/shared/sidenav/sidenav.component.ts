@@ -17,7 +17,7 @@ export class SidenavComponent {
   isOpen = true;
 
   navItems = [
-    { routerLink: '', icon: 'search', label: 'test' },
+    { routerLink: 'bank', icon: 'build', label: 'Banks' },
     // { routerLink: '', icon: 'build', label: 'tes1' },
     // { routerLink: '', icon: 'linear_scale', label: 'test2' },
     // { routerLink: '', icon: 'settings', label: 'tes3' },
