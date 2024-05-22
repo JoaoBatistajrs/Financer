@@ -18,7 +18,7 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBankAsync([FromBody] BankDto bankDto)
+        public async Task<IActionResult> AddBankAsync([FromBody] BankModel bankDto)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] BankDto bankDto)
+        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] BankModel bankDto)
         {
             try
             {

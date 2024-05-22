@@ -16,7 +16,7 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBank([FromBody] CategoryDto categoryDto)
+        public async Task<IActionResult> AddBank([FromBody] CategoryModel categoryDto)
         {
             var result = await _categoryService.CreateAsync(categoryDto);
 
@@ -50,7 +50,7 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] CategoryDto categoryDto)
+        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] CategoryModel categoryDto)
         {
             var result = await _categoryService.UpdateAsync(id, categoryDto);
 

@@ -2,7 +2,7 @@
 
 namespace FinancialManager.Application.DTOs.Validations
 {
-    public class BankDtoValidator : AbstractValidator<BankDto>
+    public class BankDtoValidator : AbstractValidator<BankModel>
     {
         public BankDtoValidator()
         {

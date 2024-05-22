@@ -23,15 +23,15 @@ namespace FinancialManager.Services.Service
             _mapper = mapper;
         }
 
-        public async Task<ResultService<RegisterDto>> CreateAsync(RegisterDto registerDto)
+        public async Task<ResultService<RegisterModel>> CreateAsync(RegisterModel registerDto)
         {
             if (registerDto == null)
-                return ResultService.Fail<RegisterDto>("Objeto deve ser informado");
+                return ResultService.Fail<RegisterModel>("Objeto deve ser informado");
 
-            var result = new RegisterDtoValidator().Validate(registerDto);
+            var result = new RegisterModelValidator().Validate(registerDto);
 
             if (!result.IsValid)
-                return ResultService.RequestError<RegisterDto>("Erro de Validação!", result);
+                return ResultService.RequestError<RegisterModel>("Erro de Validação!", result);
 
             var register = new Register(registerDto.Description, registerDto.Date, registerDto.BankId, registerDto.CategoryId, registerDto.Amount, registerDto.RegisterType);
 
@@ -53,29 +53,29 @@ namespace FinancialManager.Services.Service
             return ResultService.Ok($"Registro id:{id} foi deletado.");
         }
 
-        public async Task<ResultService<ICollection<RegisterDetailDto>>> GetAsync()
+        public async Task<ResultService<ICollection<RegisterDetailModel>>> GetAsync()
         {
             var register = await _registerRepository.GetAsync();
 
-            return ResultService.Ok(_mapper.Map<ICollection<RegisterDetailDto>>(register));
+            return ResultService.Ok(_mapper.Map<ICollection<RegisterDetailModel>>(register));
         }
 
-        public async Task<ResultService<RegisterDetailDto>> GetByIdAsync(int id)
+        public async Task<ResultService<RegisterDetailModel>> GetByIdAsync(int id)
         {
             var register = await _registerRepository.GetByIdAsync(id);
             if (register == null)
-                return ResultService.Fail<RegisterDetailDto>("Registro não encontrado!");
+                return ResultService.Fail<RegisterDetailModel>("Registro não encontrado!");
             
 
-            return ResultService.Ok(_mapper.Map<RegisterDetailDto>(register));
+            return ResultService.Ok(_mapper.Map<RegisterDetailModel>(register));
         }
 
-        public async Task<ResultService> UpdateAsync(int id, RegisterDto registerDto)
+        public async Task<ResultService> UpdateAsync(int id, RegisterModel registerDto)
         {
             if (registerDto == null)
                 return ResultService.Fail("Registro deve ser informado.");
 
-            var validation = new RegisterDtoValidator().Validate(registerDto);
+            var validation = new RegisterModelValidator().Validate(registerDto);
 
             if (validation.IsValid)
                 return ResultService.RequestError("Problema com a validação dos campos.", validation);

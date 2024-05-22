@@ -4,10 +4,10 @@ namespace FinancialManager.Application.Services.Interface
 {
     public interface IBankService
     {
-        Task<BankDto> CreateAsync(BankDto bankDto);
-        Task<ICollection<BankDto>> GetAsync();
-        Task<BankDto> GetByIdAsync(int id);
-        Task UpdateAsync(int id, BankDto bankDto);
+        Task<BankModel> CreateAsync(BankModel bankDto);
+        Task<ICollection<BankModel>> GetAsync();
+        Task<BankModel> GetByIdAsync(int id);
+        Task UpdateAsync(int id, BankModel bankDto);
         Task<bool> DeleteAsync(int id);
     }
 }

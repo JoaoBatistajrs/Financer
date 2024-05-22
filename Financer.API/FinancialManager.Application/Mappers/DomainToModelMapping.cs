@@ -8,15 +8,15 @@ namespace FinancialManager.Application.Mappers
     {
         public DomainToDtoMapping()
         {
-            CreateMap<Bank, BankDto>();
-            CreateMap<Category, CategoryDto>();
-            CreateMap<Register, RegisterDto>();
-            CreateMap<Register, RegisterDetailDto>()
+            CreateMap<Bank, BankModel>();
+            CreateMap<Category, CategoryModel>();
+            CreateMap<Register, RegisterModel>();
+            CreateMap<Register, RegisterDetailModel>()
                 .ForMember(x => x.CategoryName, opt => opt.Ignore())
                 .ForMember(x => x.BankName, opt => opt.Ignore())
                 .ConstructUsing((model, context) =>
                 {
-                    var dto = new RegisterDetailDto
+                    var dto = new RegisterDetailModel
                     {
                         BankName = model.Bank.Name,
                         CategoryName = model.Category.Name,

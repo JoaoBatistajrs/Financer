@@ -28,7 +28,7 @@ namespace FinancialManager.IoC
 
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAutoMapper(typeof(DomainToDtoMapping));
+            services.AddAutoMapper(typeof(DomainToModelMapping));
             services.AddScoped<IRegisterService, RegisterService>();
             services.AddScoped<IBankService, BankService>();
             services.AddScoped<ICategoryService, CategoryService>();

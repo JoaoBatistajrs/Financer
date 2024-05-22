@@ -17,7 +17,7 @@ namespace FinancialManager.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddBank([FromBody] RegisterDto registerDto)
+        public async Task<IActionResult> AddBank([FromBody] RegisterModel registerDto)
         {
                 var result = await _registerService.CreateAsync(registerDto);
 
@@ -51,7 +51,7 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] RegisterDto registerDto)
+        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] RegisterModel registerDto)
         {
             var result = await _registerService.UpdateAsync(id,registerDto);
 

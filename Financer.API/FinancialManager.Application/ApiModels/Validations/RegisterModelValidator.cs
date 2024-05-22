@@ -2,7 +2,7 @@
 
 namespace FinancialManager.Application.DTOs.Validations
 {
-    public class RegisterDtoValidator : AbstractValidator<RegisterDto>
+    public class RegisterDtoValidator : AbstractValidator<RegisterModel>
     {
         public RegisterDtoValidator()
         {

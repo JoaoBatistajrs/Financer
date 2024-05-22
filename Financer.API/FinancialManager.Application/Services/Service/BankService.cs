@@ -17,12 +17,12 @@ namespace FinancialManager.Application.Services.Service
             _mapper = mapper;
         }
 
-        public async Task<BankDto> CreateAsync(BankDto bankDto)
+        public async Task<BankModel> CreateAsync(BankModel bankDto)
         {
             var bank = _mapper.Map<Bank>(bankDto);
             var data = await _repository.CreateAsync(bank);
 
-            return _mapper.Map<BankDto>(data);
+            return _mapper.Map<BankModel>(data);
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -33,21 +33,21 @@ namespace FinancialManager.Application.Services.Service
            
         }
 
-        public async Task<ICollection<BankDto>> GetAsync()
+        public async Task<ICollection<BankModel>> GetAsync()
         {
             var bank = await _repository.GetAsync();
             
-            return _mapper.Map<ICollection<BankDto>>(bank);
+            return _mapper.Map<ICollection<BankModel>>(bank);
         }
 
-        public async Task<BankDto> GetByIdAsync(int id)
+        public async Task<BankModel> GetByIdAsync(int id)
         {
             var bank = await _repository.GetByIdAsync(id);
 
-            return _mapper.Map<BankDto>(bank);
+            return _mapper.Map<BankModel>(bank);
         }
 
-        public async Task UpdateAsync(int id, BankDto bankDto)
+        public async Task UpdateAsync(int id, BankModel bankDto)
         {
             var bank = await _repository.GetByIdAsync(bankDto.Id);
 

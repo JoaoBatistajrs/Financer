@@ -5,10 +5,10 @@ namespace FinancialManager.Services.Interface
 {
     public interface IRegisterService
     {
-        Task<ResultService<RegisterDto>> CreateAsync(RegisterDto registerDto);
-        Task<ResultService<ICollection<RegisterDetailDto>>> GetAsync();
-        Task<ResultService<RegisterDetailDto>> GetByIdAsync(int id);
-        Task<ResultService> UpdateAsync(int id, RegisterDto registerDto);
+        Task<ResultService<RegisterModel>> CreateAsync(RegisterModel registerDto);
+        Task<ResultService<ICollection<RegisterDetailModel>>> GetAsync();
+        Task<ResultService<RegisterDetailModel>> GetByIdAsync(int id);
+        Task<ResultService> UpdateAsync(int id, RegisterModel registerDto);
         Task<ResultService> DeleteAsync(int id);
     }
 }

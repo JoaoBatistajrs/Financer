@@ -5,10 +5,10 @@ namespace FinancialManager.Application.Services.Interface
 {
     public interface ICategoryService
     {
-        Task<ResultService<CategoryDto>> CreateAsync(CategoryDto categoryDto);
-        Task<ResultService<ICollection<CategoryDto>>> GetAsync();
-        Task<ResultService<CategoryDto>> GetByIdAsync(int id);
-        Task<ResultService> UpdateAsync(int id, CategoryDto categoryDto);
+        Task<ResultService<CategoryModel>> CreateAsync(CategoryModel categoryDto);
+        Task<ResultService<ICollection<CategoryModel>>> GetAsync();
+        Task<ResultService<CategoryModel>> GetByIdAsync(int id);
+        Task<ResultService> UpdateAsync(int id, CategoryModel categoryDto);
         Task<ResultService> DeleteAsync(int id);
     }
 }
