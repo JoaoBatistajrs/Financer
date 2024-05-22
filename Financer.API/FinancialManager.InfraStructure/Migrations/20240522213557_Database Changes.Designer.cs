@@ -4,6 +4,7 @@ using FinancialManager.InfraStructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinancialManager.InfraStructure.Migrations
 {
     [DbContext(typeof(FinancialManagerDbContext))]
-    partial class FinancialManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240522213557_Database Changes")]
+    partial class DatabaseChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

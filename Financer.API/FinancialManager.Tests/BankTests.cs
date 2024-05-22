@@ -1,4 +1,3 @@
-using FinancialManager.Domain.Enum;
 using FinancialManager.Domain.Models;
 
 namespace FinancialManager.Tests
