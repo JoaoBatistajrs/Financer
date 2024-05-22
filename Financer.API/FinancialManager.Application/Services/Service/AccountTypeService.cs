@@ -27,24 +27,24 @@ namespace FinancialManager.Application.Services.Service
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var bank = await _repository.GetByIdAsync(id);
+            var accountType = await _repository.GetByIdAsync(id);
 
-            return await _repository.DeleteAsync(id);
+            return await _repository.DeleteAsync(accountType.Id);
 
         }
 
         public async Task<ICollection<AccountTypeModel>> GetAsync()
         {
-            var bank = await _repository.GetAsync();
+            var accountType = await _repository.GetAsync();
 
-            return _mapper.Map<ICollection<AccountTypeModel>>(bank);
+            return _mapper.Map<ICollection<AccountTypeModel>>(accountType);
         }
 
         public async Task<AccountTypeModel> GetByIdAsync(int id)
         {
-            var bank = await _repository.GetByIdAsync(id);
+            var accountType = await _repository.GetByIdAsync(id);
 
-            return _mapper.Map<AccountTypeModel>(bank);
+            return _mapper.Map<AccountTypeModel>(accountType);
         }
 
         public async Task UpdateAsync(int id, AccountTypeModel accountTypeModel)

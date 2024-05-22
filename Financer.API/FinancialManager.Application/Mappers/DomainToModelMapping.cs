@@ -12,6 +12,7 @@ namespace FinancialManager.Application.Mappers
             CreateMap<Category, CategoryModel>();
             CreateMap<Register, RegisterModel>();
             CreateMap<AccountType, AccountTypeModel>();
+            CreateMap<ExpenseType, ExpenseTypeModel>();
             CreateMap<Register, RegisterDetailModel>()
                 .ForMember(x => x.CategoryName, opt => opt.Ignore())
                 .ForMember(x => x.BankName, opt => opt.Ignore())

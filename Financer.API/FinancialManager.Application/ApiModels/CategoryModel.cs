@@ -1,4 +1,4 @@
-﻿using FinancialManager.Domain.Enum;
+﻿using FinancialManager.Domain.Models;
 
 namespace FinancialManager.Application.ApiModels
 {
@@ -6,6 +6,7 @@ namespace FinancialManager.Application.ApiModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ExpenseTypeEnum Type { get; set; }
+        public int ExpenseTypeId { get; set; }
+        public ExpenseType Type { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using FinancialManager.Domain.Enum;
-using FinancialManager.Domain.Interfaces;
+﻿using FinancialManager.Domain.Interfaces;
 
 namespace FinancialManager.Domain.Models
 {
@@ -7,21 +6,22 @@ namespace FinancialManager.Domain.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ExpenseTypeEnum Type { get; set; }
+        public int ExpenseTypeId {  get; set; }
+        public ExpenseType Type { get; set; }
         public ICollection<Register> Registers { get; set; }
 
-        public Category(string name, ExpenseTypeEnum type)
+        public Category(string name, int expenseTypeId)
         {
             Name = name;
-            Type = type;
+            ExpenseTypeId = expenseTypeId;
             Registers = new List<Register>();
         }
 
-        public Category(int id, string name, ExpenseTypeEnum type)
+        public Category(int id, string name, int expenseTypeId)
         {
             Id = id;
             Name = name;
-            Type = type;
+            ExpenseTypeId = expenseTypeId;
         }
     }
 }

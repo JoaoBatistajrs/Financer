@@ -12,6 +12,7 @@ namespace FinancialManager.Application.Mappers
             CreateMap<BankModel, Bank>();
             CreateMap<CategoryModel, Category>();
             CreateMap<AccountTypeModel, AccountType>();
+            CreateMap<ExpenseTypeModel, ExpenseType>();
         }
     }
 }
