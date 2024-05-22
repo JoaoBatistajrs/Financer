@@ -8,12 +8,12 @@ namespace FinancialManager.Domain.Models
         public string Description { get; set; }
         public DateTime Date { get; set; }
         public int BankId { get; set; }
+        public Bank Bank { get; set; }
         public int CategoryId { get; set; }
+        public Category Category { get; set; }
         public decimal Amount { get; set; }
         public int RegisterTypeId { get; set; }
         public RegisterType RegisterType { get; set; }
-        public  Bank Bank { get; set; }
-        public  Category Category { get; set; }
 
         public Register(string description, DateTime date, int bankId, int categoryId, decimal amount, int registerTypeId)
         {
