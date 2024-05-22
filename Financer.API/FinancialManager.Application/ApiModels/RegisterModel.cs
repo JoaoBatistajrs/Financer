@@ -1,4 +1,4 @@
-﻿using FinancialManager.Domain.Enum;
+﻿using FinancialManager.Domain.Models;
 
 namespace FinancialManager.Application.ApiModels
 {
@@ -12,6 +12,7 @@ namespace FinancialManager.Application.ApiModels
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public decimal Amount { get; set; }
-        public RegisterTypeEnum RegisterType { get; set; }
+        public int RegisterTypeId { get; set; }
+        public RegisterType RegisterType { get; set; }
     }
 }

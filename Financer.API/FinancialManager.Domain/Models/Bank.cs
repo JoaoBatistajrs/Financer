@@ -1,5 +1,4 @@
-﻿using FinancialManager.Domain.Enum;
-using FinancialManager.Domain.Interfaces;
+﻿using FinancialManager.Domain.Interfaces;
 
 namespace FinancialManager.Domain.Models
 {

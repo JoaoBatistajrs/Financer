@@ -24,6 +24,7 @@ namespace FinancialManager.IoC
             services.AddScoped<IEntitiesRepository<Category>, EntitiesRepository<Category>>();
             services.AddScoped<IEntitiesRepository<AccountType>, EntitiesRepository<AccountType>>();
             services.AddScoped<IEntitiesRepository<ExpenseType>, EntitiesRepository<ExpenseType>>();
+            services.AddScoped<IEntitiesRepository<RegisterType>, EntitiesRepository<RegisterType>>();
 
             return services;
         }
@@ -36,6 +37,7 @@ namespace FinancialManager.IoC
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IAccountTypeService, AccountTypeService>();
             services.AddScoped<IExpenseTypeService, ExpenseTypeService>();
+            services.AddScoped<IRegisterTypeService, RegisterTypeService>();
 
             return services;
         }

@@ -1,6 +1,4 @@
-﻿using FinancialManager.Domain.Enum;
-
-namespace FinancialManager.Domain.Interfaces
+﻿namespace FinancialManager.Domain.Interfaces
 {
     public interface IBank
     {

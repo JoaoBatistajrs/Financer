@@ -1,28 +1,27 @@
 ﻿using FinancialManager.Application.ApiModels;
-using FinancialManager.Services.Interface;
+using FinancialManager.Application.Services.Interface;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FinancialManager.Controllers
+namespace FinancialManager.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RegistersController : ControllerBase
+    public class RegisterTypeController : ControllerBase
     {
-        private readonly IRegisterService _registerService;
+        private readonly IRegisterTypeService _registerTypeService;
 
-        public RegistersController(IRegisterService registerService)
+        public RegisterTypeController(IRegisterTypeService service)
         {
-            _registerService = registerService;
+            _registerTypeService = service;
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> AddRegisterAsync([FromBody] RegisterModel registerModel)
+        public async Task<IActionResult> AddRegisterTypeAsync([FromBody] RegisterTypeModel registerTypeModel)
         {
             try
             {
-                var result = await _registerService.CreateAsync(registerModel);
+                var result = await _registerTypeService.CreateAsync(registerTypeModel);
                 return Ok(result);
             }
             catch (ValidationException ex)
@@ -39,7 +38,7 @@ namespace FinancialManager.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            var result = await _registerService.GetAsync();
+            var result = await _registerTypeService.GetAsync();
 
             if (result != null)
                 return Ok(result);
@@ -51,7 +50,7 @@ namespace FinancialManager.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
-            var result = await _registerService.GetByIdAsync(id);
+            var result = await _registerTypeService.GetByIdAsync(id);
 
             if (result != null)
             {
@@ -62,20 +61,20 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] RegisterModel registerModel)
+        public async Task<IActionResult> UpdateExpenseTypeAsync(int id, [FromBody] RegisterTypeModel registerTypeModel)
         {
             try
             {
-                await _registerService.UpdateAsync(id, registerModel);
+                await _registerTypeService.UpdateAsync(id, registerTypeModel);
 
-                var updatedBank = await _registerService.GetByIdAsync(id);
+                var result = await _registerTypeService.GetByIdAsync(id);
 
-                if (updatedBank != null)
+                if (result != null)
                 {
-                    return Ok(updatedBank);
+                    return Ok(result);
                 }
 
-                return NotFound($"Register with ID {id} not found.");
+                return NotFound($"Register Type with ID {id} not found.");
             }
             catch (Exception ex)
             {
@@ -90,7 +89,7 @@ namespace FinancialManager.Controllers
         {
             try
             {
-                var result = await _registerService.DeleteAsync(id);
+                var result = await _registerTypeService.DeleteAsync(id);
 
                 if (!result)
                     return NotFound();

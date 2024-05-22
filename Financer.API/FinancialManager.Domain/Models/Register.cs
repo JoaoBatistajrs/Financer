@@ -1,5 +1,4 @@
-﻿using FinancialManager.Domain.Enum;
-using FinancialManager.Domain.Interfaces;
+﻿using FinancialManager.Domain.Interfaces;
 
 namespace FinancialManager.Domain.Models
 {
@@ -11,21 +10,22 @@ namespace FinancialManager.Domain.Models
         public int BankId { get; set; }
         public int CategoryId { get; set; }
         public decimal Amount { get; set; }
-        public RegisterTypeEnum RegisterType { get; set; }
+        public int RegisterTypeId { get; set; }
+        public RegisterType RegisterType { get; set; }
         public  Bank Bank { get; set; }
         public  Category Category { get; set; }
 
-        public Register(string description, DateTime date, int bankId, int categoryId, decimal amount, RegisterTypeEnum registerType)
+        public Register(string description, DateTime date, int bankId, int categoryId, decimal amount, int registerTypeId)
         {
             Description = description;
             Date = date;
             BankId = bankId;
             CategoryId = categoryId;
             Amount = amount;
-            RegisterType = registerType;
+            RegisterTypeId = registerTypeId;
         }
 
-        public Register(int id, string description, DateTime date, int bankId, int categoryId, decimal amount, RegisterTypeEnum registerType)
+        public Register(int id, string description, DateTime date, int bankId, int categoryId, decimal amount, int registerTypeId)
         {
             Id = id;
             Description = description;
@@ -33,18 +33,17 @@ namespace FinancialManager.Domain.Models
             BankId = bankId;
             CategoryId = categoryId;
             Amount = amount;
-            RegisterType = registerType;
+            RegisterTypeId = registerTypeId;
         }
 
-        public void Edit(int id, string description, DateTime date, int bankId, int categoryId, decimal amount, RegisterTypeEnum registerType)
+        public void Edit(string description, DateTime date, int bankId, int categoryId, decimal amount, int registerTypeId)
         {
-            Id = id;
             Description = description;
             Date = date;
             BankId = bankId;
             CategoryId = categoryId;
             Amount = amount;
-            RegisterType = registerType;
+            RegisterTypeId = registerTypeId;
         }
     }
 }

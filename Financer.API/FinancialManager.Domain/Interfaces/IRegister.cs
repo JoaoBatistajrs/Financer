@@ -1,6 +1,4 @@
-﻿using FinancialManager.Domain.Enum;
-using FinancialManager.Domain.Models;
-using System.Security;
+﻿using FinancialManager.Domain.Models;
 
 namespace FinancialManager.Domain.Interfaces
 {
@@ -11,6 +9,7 @@ namespace FinancialManager.Domain.Interfaces
         public Bank Bank { get; set; }
         public Category Category { get; set; }  
         public decimal Amount { get; set; }
-        public RegisterTypeEnum RegisterType { get; set; }
+        public int RegisterTypeId { get; set; }
+        public RegisterType RegisterType { get; set; }
     }
 }
