@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace FinancialManager.Application.DTOs.Validations
+namespace FinancialManager.Application.ApiModels.Validations
 {
-    public class RegisterDtoValidator : AbstractValidator<RegisterModel>
+    public class RegisterModelValidator : AbstractValidator<RegisterModel>
     {
-        public RegisterDtoValidator()
+        public RegisterModelValidator()
         {
             RuleFor(x => x.Description)
                 .NotEmpty()

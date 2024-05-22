@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using FinancialManager.Application.DTOs;
-using FinancialManager.Application.DTOs.Validations;
+using FinancialManager.Application.ApiModels;
+using FinancialManager.Application.ApiModels.Validations;
 using FinancialManager.Application.Services.Service;
 using FinancialManager.Domain.Models;
 using FinancialManager.Domain.Repositories.Interface;

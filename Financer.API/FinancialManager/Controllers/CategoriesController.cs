@@ -1,4 +1,4 @@
-﻿using FinancialManager.Application.DTOs;
+﻿using FinancialManager.Application.ApiModels;
 using FinancialManager.Application.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +16,9 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBank([FromBody] CategoryModel categoryDto)
+        public async Task<IActionResult> AddBank([FromBody] CategoryModel categoryModel)
         {
-            var result = await _categoryService.CreateAsync(categoryDto);
+            var result = await _categoryService.CreateAsync(categoryModel);
 
             if (result.IsSuccess)
                 return Ok(result);

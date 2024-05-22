@@ -1,4 +1,4 @@
-﻿using FinancialManager.Application.DTOs;
+﻿using FinancialManager.Application.ApiModels;
 using FinancialManager.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 

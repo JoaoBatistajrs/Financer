@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FinancialManager.Application.DTOs;
+using FinancialManager.Application.ApiModels;
 using FinancialManager.Domain.Models;
 
 namespace FinancialManager.Application.Mappers
@@ -11,6 +11,7 @@ namespace FinancialManager.Application.Mappers
             CreateMap<RegisterModel, Register>();
             CreateMap<BankModel, Bank>();
             CreateMap<CategoryModel, Category>();
+            CreateMap<AccountTypeModel, AccountType>();
         }
     }
 }

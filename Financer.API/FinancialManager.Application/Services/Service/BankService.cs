@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FinancialManager.Application.DTOs;
+using FinancialManager.Application.ApiModels;
 using FinancialManager.Application.Services.Interface;
 using FinancialManager.Domain.Models;
 using FinancialManager.Domain.Repositories.Interface;

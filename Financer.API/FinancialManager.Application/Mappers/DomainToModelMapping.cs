@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
-using FinancialManager.Application.DTOs;
+using FinancialManager.Application.ApiModels;
 using FinancialManager.Domain.Models;
 
 namespace FinancialManager.Application.Mappers
 {
-    public class DomainToDtoMapping : Profile
+    public class DomainToModelMapping : Profile
     {
-        public DomainToDtoMapping()
+        public DomainToModelMapping()
         {
             CreateMap<Bank, BankModel>();
             CreateMap<Category, CategoryModel>();
             CreateMap<Register, RegisterModel>();
+            CreateMap<AccountType, AccountTypeModel>();
             CreateMap<Register, RegisterDetailModel>()
                 .ForMember(x => x.CategoryName, opt => opt.Ignore())
                 .ForMember(x => x.BankName, opt => opt.Ignore())

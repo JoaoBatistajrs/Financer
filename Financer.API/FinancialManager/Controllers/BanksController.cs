@@ -1,8 +1,8 @@
-﻿using FinancialManager.Application.DTOs;
+﻿
+using FinancialManager.Application.ApiModels;
 using FinancialManager.Application.Services.Interface;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FinancialManager.Controllers
 {

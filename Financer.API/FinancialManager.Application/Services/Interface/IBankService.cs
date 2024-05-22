@@ -1,4 +1,4 @@
-﻿using FinancialManager.Application.DTOs;
+﻿using FinancialManager.Application.ApiModels;
 
 namespace FinancialManager.Application.Services.Interface
 {

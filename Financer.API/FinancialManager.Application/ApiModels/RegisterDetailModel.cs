@@ -1,8 +1,8 @@
 ﻿using FinancialManager.Domain.Enum;
 
-namespace FinancialManager.Application.DTOs
+namespace FinancialManager.Application.ApiModels
 {
-    public class RegisterDetailDto
+    public class RegisterDetailModel
     {
         public int Id { get; set; }
         public string Description { get; set; }

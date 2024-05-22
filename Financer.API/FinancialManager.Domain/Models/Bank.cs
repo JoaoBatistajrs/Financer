@@ -9,25 +9,26 @@ namespace FinancialManager.Domain.Models
         public string? Name { get; set; }
         public string? Agency { get; set; }
         public string? AccountNumber { get; set; }
-        public AccountTypeEnum AccountType { get; set; }
+        public int AccountTypeId {  get; set; }
+        public AccountType AccountType { get; set; }
         public ICollection<Register> Registers { get; set; }    
 
-        public Bank(string? name, string? agency, string? accountNumber, AccountTypeEnum accountType)
+        public Bank(string? name, string? agency, string? accountNumber, int accountTypeId)
         {
             Name = name;
             Agency = agency;
             AccountNumber = accountNumber;
-            AccountType = accountType;
+            AccountTypeId = accountTypeId;
             Registers = new List<Register>();
         }
 
-        public Bank(int id, string? name, string? agency, string? accountNumber, AccountTypeEnum accountType)
+        public Bank(int id, string? name, string? agency, string? accountNumber, int accountTypeId)
         {
             Id = id;
             Name = name;
             Agency = agency;
             AccountNumber = accountNumber;
-            AccountType = accountType;
+            AccountTypeId = accountTypeId;
         }
     }
 }

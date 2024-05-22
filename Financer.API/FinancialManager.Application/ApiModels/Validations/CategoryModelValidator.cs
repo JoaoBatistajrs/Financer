@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace FinancialManager.Application.DTOs.Validations
+namespace FinancialManager.Application.ApiModels.Validations
 {
-    public class CategoryDtoValidator : AbstractValidator<CategoryModel>
+    public class CategoryModelValidator : AbstractValidator<CategoryModel>
     {
-        public CategoryDtoValidator()
+        public CategoryModelValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty()

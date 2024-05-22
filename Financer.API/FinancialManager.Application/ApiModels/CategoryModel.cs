@@ -1,9 +1,8 @@
 ﻿using FinancialManager.Domain.Enum;
-using FinancialManager.Domain.Models;
 
-namespace FinancialManager.Application.DTOs
+namespace FinancialManager.Application.ApiModels
 {
-    public class CategoryDto
+    public class CategoryModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
