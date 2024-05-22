@@ -12,5 +12,7 @@ namespace FinancialManager.InfraStructure.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Register> Registers { get; set; }
+        public DbSet<AccountType> AccountTypes { get; set; }
+        public DbSet<ExpenseType> ExpenseTypes { get; set; }
     }
 }
