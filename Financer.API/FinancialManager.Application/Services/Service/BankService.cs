@@ -53,5 +53,30 @@ namespace FinancialManager.Application.Services.Service
 
             await _repository.UpdateAsync(id, bank);
         }
+
+        public void UpdateAccountBalanceValidation(Bank bank, bool IsIncome, decimal registerValue)
+        {
+            if (IsIncome)
+                UpdateAccountBalanceWithIncome(bank, registerValue);
+            else
+                UpdateAccountBalanceWithExpense(bank, registerValue);
+        }
+
+        private void UpdateAccountBalanceWithExpense(Bank bank, decimal registerValue)
+        {
+
+            if (registerValue > 0 && bank.AccountBalance > registerValue)
+                bank.AccountBalance -= registerValue;
+            else
+                throw new InvalidOperationException("Insufficient balance for the operation");
+        }
+
+        private void UpdateAccountBalanceWithIncome(Bank bank, decimal registerValue)
+        {
+            if (registerValue > 0)
+                bank.AccountBalance += registerValue;
+            else
+                throw new InvalidOperationException("Can not add negative values.");
+        }
     }
 }
