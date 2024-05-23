@@ -14,6 +14,7 @@ namespace FinancialManager.InfraStructure.Configurations
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Agency).HasMaxLength(20);
             builder.Property(x => x.AccountNumber).HasMaxLength(20);
+            builder.Property(x => x.AccountBalance).IsRequired();
 
             builder.HasMany(x => x.Registers)
                    .WithOne(r => r.Bank)

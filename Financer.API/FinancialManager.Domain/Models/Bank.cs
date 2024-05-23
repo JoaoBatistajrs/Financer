@@ -8,13 +8,15 @@ namespace FinancialManager.Domain.Models
         public string? Name { get; set; }
         public string? Agency { get; set; }
         public string? AccountNumber { get; set; }
+        public decimal AccountBalance { get; set; } 
         public ICollection<Register> Registers { get; set; }    
 
-        public Bank(string? name, string? agency, string? accountNumber)
+        public Bank(string? name, string? agency, string? accountNumber, decimal accountBalance)
         {
             Name = name;
             Agency = agency;
             AccountNumber = accountNumber;
+            AccountBalance = accountBalance;
         }
     }
 }

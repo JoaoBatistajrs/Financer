@@ -1,11 +1,9 @@
-import { AccountTypeEnum } from "../enums/accounttype.enum";
-
 export interface Bank {
   id: number;
   name: string;
   agency?: string;
   accountNumber?: string;
-  accountType: AccountTypeEnum;
+  accountBalance: number;
 }
 
 export interface BankModelCreate {

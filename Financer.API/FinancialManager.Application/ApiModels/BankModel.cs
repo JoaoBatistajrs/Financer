@@ -9,5 +9,6 @@ namespace FinancialManager.Application.ApiModels
         public string? Agency { get; set; }
         public string? AccountNumber { get; set; }
         public int AccountTypeId { get; set; }
+        public decimal AccountBalance { get; set; }
     }
 }
