@@ -8,50 +8,51 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DatatableComponent } from '../../../shared/datatable/datatable.component';
-import { Bank } from '../../../models/bank';
-import { BankService } from '../../../services/banks.service';
 import { Router } from '@angular/router';
+import { ExpenseType } from '../../../models/expensetype';
+import { ExpenseTypeService } from '../../../services/expensetype.service';
+
 
 @Component({
-  selector: 'app-bank.list',
+  selector: 'app-expense.type.list',
   standalone: true,
   imports: [DatatableComponent, MatButtonModule, MatTooltipModule, MatIconModule, MatCardModule, ReactiveFormsModule],
-  templateUrl: './bank.list.component.html',
-  styleUrl: './bank.list.component.scss'
+  templateUrl: './expense.type.list.component.html',
+  styleUrl: './expense.type.list.component.scss'
 })
-export class BankListComponent {
+export class ExpenseTypeListComponent {
   tableColumns!: string[];
   columnNames!: string[];
-  bankData!: Bank[];
+  expenseTypeData!: ExpenseType[];
 
-  constructor(private bankService: BankService,
+  constructor(private expenseTypeService: ExpenseTypeService,
     private router: Router,
     private snackBar: MatSnackBar,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.refreshData();
-    this.tableColumns = this.bankService.getTableColumns();
-    this.columnNames = this.bankService.getColumnNames();
+    this.tableColumns = this.expenseTypeService.getTableColumns();
+    this.columnNames = this.expenseTypeService.getColumnNames();
     // this.updateService.updated$.subscribe(() => {
     //   this.refreshData();
     // });
   }
 
   OnCreate(): void {
-    this.router.navigate(['create-bank']);
+    this.router.navigate(['create-expenseType']);
   }
 
-  edit(bank: Bank): void {
+  edit(bank: ExpenseType): void {
     const bankId = bank.id;
-    this.router.navigate(['edit-bank', bankId]);
+    this.router.navigate(['edit-expenseType', bankId]);
   }
 
   refreshData(): void {
-    this.bankService.getAll().subscribe(data => this.bankData = data);
+    this.expenseTypeService.getAll().subscribe(data => this.expenseTypeData = data);
   }
 
-  remove(bank: Bank): void {
+  remove(bank: ExpenseType): void {
     const bankId = bank.id;
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: 'Are you sure you want to delete this record?',
@@ -59,7 +60,7 @@ export class BankListComponent {
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
-        this.bankService.delete(bankId).subscribe(
+        this.expenseTypeService.delete(bankId).subscribe(
           {
             next: () => {
               this.snackBar.open('Manufacturer was deleted!', '', {
@@ -82,3 +83,4 @@ export class BankListComponent {
   }
 
 }
+
