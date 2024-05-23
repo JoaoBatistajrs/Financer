@@ -11,16 +11,14 @@ namespace FinancialManager.Tests
             string name = "Bank of Finance";
             string agency = "1234";
             string accountNumber = "567890";
-            int accountTypeId = '2';
 
             // Act
-            var bank = new Bank(name, agency, accountNumber, accountTypeId);
+            var bank = new Bank(name, agency, accountNumber);
 
             // Assert
             Assert.Equal(name, bank.Name);
             Assert.Equal(agency, bank.Agency);
             Assert.Equal(accountNumber, bank.AccountNumber);
-            Assert.Equal(accountTypeId, bank.AccountTypeId);
         }
     }
 }

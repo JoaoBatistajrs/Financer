@@ -14,12 +14,6 @@ namespace FinancialManager.InfraStructure.Configurations
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Agency).HasMaxLength(20);
             builder.Property(x => x.AccountNumber).HasMaxLength(20);
-            builder.Property(x => x.AccountTypeId).IsRequired();
-
-            builder.HasOne(x => x.AccountType)
-                   .WithMany()
-                   .HasForeignKey(x => x.AccountTypeId)
-                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(x => x.Registers)
                    .WithOne(r => r.Bank)

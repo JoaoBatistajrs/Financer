@@ -11,8 +11,8 @@ namespace FinancialManager.Application.Mappers
             CreateMap<RegisterModel, Register>();
             CreateMap<BankModel, Bank>();
             CreateMap<CategoryModel, Category>();
-            CreateMap<AccountTypeModel, AccountType>();
             CreateMap<ExpenseTypeModel, ExpenseType>();
+            CreateMap<RegisterTypeModel, RegisterType>();
         }
     }
 }
