@@ -18,11 +18,10 @@ export class SidenavComponent {
 
   navItems = [
     { routerLink: 'bank', icon: 'build', label: 'Banks' },
-    // { routerLink: '', icon: 'build', label: 'tes1' },
-    // { routerLink: '', icon: 'linear_scale', label: 'test2' },
-    // { routerLink: '', icon: 'settings', label: 'tes3' },
-    // { routerLink: '', icon: 'engineering', label: 'test4' },
-    // { routerLink: '', icon: 'lock', label: 'test5' }
+    { routerLink: 'register', icon: 'build', label: 'Registers' },
+    { routerLink: 'expense', icon: 'linear_scale', label: 'Expenses' },
+    { routerLink: 'category', icon: 'settings', label: 'Categories' },
+    { routerLink: 'register-type', icon: 'engineering', label: 'Register Type' },
   ];
 
   toggle() {
