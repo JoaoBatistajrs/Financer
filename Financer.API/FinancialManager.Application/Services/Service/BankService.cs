@@ -17,12 +17,12 @@ namespace FinancialManager.Application.Services.Service
             _mapper = mapper;
         }
 
-        public async Task<BankModel> CreateAsync(BankModel bankDto)
+        public async Task<BankCreateModel> CreateAsync(BankCreateModel bankDto)
         {
             var bank = _mapper.Map<Bank>(bankDto);
             var data = await _repository.CreateAsync(bank);
 
-            return _mapper.Map<BankModel>(data);
+            return _mapper.Map<BankCreateModel>(data);
         }
 
         public async Task<bool> DeleteAsync(int id)

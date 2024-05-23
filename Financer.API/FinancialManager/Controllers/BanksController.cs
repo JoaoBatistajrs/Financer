@@ -18,7 +18,7 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBankAsync([FromBody] BankModel bankDto)
+        public async Task<IActionResult> AddBankAsync([FromBody] BankCreateModel bankDto)
         {
             try
             {

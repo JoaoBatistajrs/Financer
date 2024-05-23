@@ -18,16 +18,6 @@ namespace FinancialManager.Domain.Models
             Agency = agency;
             AccountNumber = accountNumber;
             AccountTypeId = accountTypeId;
-            Registers = new List<Register>();
-        }
-
-        public Bank(int id, string? name, string? agency, string? accountNumber, int accountTypeId)
-        {
-            Id = id;
-            Name = name;
-            Agency = agency;
-            AccountNumber = accountNumber;
-            AccountTypeId = accountTypeId;
         }
     }
 }

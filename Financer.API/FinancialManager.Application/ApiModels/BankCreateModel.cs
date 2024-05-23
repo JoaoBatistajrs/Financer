@@ -1,8 +1,6 @@
-﻿using FinancialManager.Domain.Models;
-
-namespace FinancialManager.Application.ApiModels
+﻿namespace FinancialManager.Application.ApiModels
 {
-    public class BankModel
+    public class BankCreateModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
