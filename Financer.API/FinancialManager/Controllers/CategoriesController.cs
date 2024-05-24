@@ -1,5 +1,7 @@
 ﻿using FinancialManager.Application.ApiModels;
 using FinancialManager.Application.Services.Interface;
+using FinancialManager.Application.Services.Service;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialManager.Controllers
@@ -18,12 +20,20 @@ namespace FinancialManager.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBank([FromBody] CategoryModel categoryModel)
         {
-            var result = await _categoryService.CreateAsync(categoryModel);
-
-            if (result.IsSuccess)
+            try
+            {
+                var result = await _categoryService.CreateAsync(categoryModel);
                 return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { Errors = ex.Errors });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
 
-            return BadRequest(result);
+            }
         }
 
         [HttpGet]
@@ -31,7 +41,7 @@ namespace FinancialManager.Controllers
         {
             var result = await _categoryService.GetAsync();
 
-            if (result.IsSuccess)
+            if (result != null)
                 return Ok(result);
 
             return BadRequest(result);
@@ -43,33 +53,55 @@ namespace FinancialManager.Controllers
         {
             var result = await _categoryService.GetByIdAsync(id);
 
-            if (result.IsSuccess)
+            if (result != null)
+            {
                 return Ok(result);
+            }
 
-            return BadRequest(result);
+            return NotFound();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] CategoryModel categoryDto)
         {
-            var result = await _categoryService.UpdateAsync(id, categoryDto);
+            try
+            {
+                await _categoryService.UpdateAsync(id, categoryDto);
 
-            if (result.IsSuccess)
-                return Ok(result);
+                var updatedCategory = await _categoryService.GetByIdAsync(id);
 
-            return BadRequest(result);
+                if (updatedCategory != null)
+                {
+                    return Ok(updatedCategory);
+                }
+
+                return NotFound($"Category with ID {id} not found.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+
+            }
         }
 
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var result = await _categoryService.DeleteAsync(id);
+            try
+            {
+                var result = await _categoryService.DeleteAsync(id);
 
-            if (result.IsSuccess)
-                return Ok(result);
+                if (!result)
+                    return NotFound();
 
-            return BadRequest(result);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+
+            }
         }
     }
 }

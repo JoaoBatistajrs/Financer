@@ -18,11 +18,11 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBankAsync([FromBody] BankCreateModel bankDto)
+        public async Task<IActionResult> AddBankAsync([FromBody] BankCreateModel bankModel)
         {
             try
             {
-                var result = await _bankService.CreateAsync(bankDto);
+                var result = await _bankService.CreateAsync(bankModel);
                 return Ok(result);
             }
             catch (ValidationException ex)
@@ -62,11 +62,11 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] BankModel bankDto)
+        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] BankModel bankModel)
         {
             try
             {
-                await _bankService.UpdateAsync(id, bankDto);
+                await _bankService.UpdateAsync(id, bankModel);
 
                 var updatedBank = await _bankService.GetByIdAsync(id);
 
