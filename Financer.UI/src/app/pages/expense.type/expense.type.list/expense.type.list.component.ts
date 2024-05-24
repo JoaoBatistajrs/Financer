@@ -63,7 +63,7 @@ export class ExpenseTypeListComponent {
         this.expenseTypeService.delete(bankId).subscribe(
           {
             next: () => {
-              this.snackBar.open('Manufacturer was deleted!', '', {
+              this.snackBar.open('Expense was deleted!', '', {
                 duration: 5000,
                 verticalPosition: 'top',
                 horizontalPosition: 'center'

@@ -1,1 +1,15 @@
-<p>register.list works!</p>
+<div class="table-container">
+  <button class="custom-button" mat-raised-button color="warn" (click)="OnCreate()">
+    CREATE REGISTER
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <app-datatable
+    [dataColumns]="tableColumns"
+    [columnNames]="columnNames"
+    [dataToDisplay]="registerData"
+    [showManagementeColumn]="true"
+    (editItemClicked)="edit($event)"
+    (removeItemClicked)="remove($event)"
+  />
+</div>

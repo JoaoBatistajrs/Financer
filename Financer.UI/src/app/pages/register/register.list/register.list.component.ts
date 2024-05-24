@@ -23,7 +23,7 @@ import { RegisterService } from '../../../services/register.service';
 export class RegisterListComponent {
   tableColumns!: string[];
   columnNames!: string[];
-  bankData!: Register[];
+  registerData!: Register[];
 
   constructor(private registerService: RegisterService,
     private router: Router,
@@ -49,7 +49,7 @@ export class RegisterListComponent {
   }
 
   refreshData(): void {
-    this.registerService.getAll().subscribe(data => this.bankData = data);
+    this.registerService.getAll().subscribe(data => this.registerData = data);
   }
 
   remove(register: Register): void {
@@ -63,7 +63,7 @@ export class RegisterListComponent {
         this.registerService.delete(registerId).subscribe(
           {
             next: () => {
-              this.snackBar.open('Manufacturer was deleted!', '', {
+              this.snackBar.open('Register was deleted!', '', {
                 duration: 5000,
                 verticalPosition: 'top',
                 horizontalPosition: 'center'

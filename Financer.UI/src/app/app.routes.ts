@@ -6,6 +6,7 @@ import { CategoryListComponent } from './pages/category/category.list/category.l
 import { RegisterTypeListComponent } from './pages/register.type/register.type.list/register.type.list.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/register', pathMatch: 'full' },
   { path: 'bank', component:  BankListComponent },
   { path: 'register', component:  RegisterListComponent },
   { path: 'expense', component:  ExpenseTypeListComponent },

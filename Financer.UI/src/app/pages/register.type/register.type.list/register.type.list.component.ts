@@ -42,9 +42,9 @@ export class RegisterTypeListComponent {
     this.router.navigate(['create-bank']);
   }
 
-  edit(bank: RegisterType): void {
-    const bankId = bank.id;
-    this.router.navigate(['edit-bank', bankId]);
+  edit(registerType: RegisterType): void {
+    const registerTypeId = registerType.id;
+    this.router.navigate(['edit-bank', registerTypeId]);
   }
 
   refreshData(): void {
@@ -52,17 +52,17 @@ export class RegisterTypeListComponent {
   }
 
   remove(bank: RegisterType): void {
-    const bankId = bank.id;
+    const registerTypeId = bank.id;
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: 'Are you sure you want to delete this record?',
     });
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
-        this.registerTypeService.delete(bankId).subscribe(
+        this.registerTypeService.delete(registerTypeId).subscribe(
           {
             next: () => {
-              this.snackBar.open('Manufacturer was deleted!', '', {
+              this.snackBar.open('Register Type was deleted!', '', {
                 duration: 5000,
                 verticalPosition: 'top',
                 horizontalPosition: 'center'
