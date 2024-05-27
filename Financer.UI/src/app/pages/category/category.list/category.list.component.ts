@@ -10,8 +10,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DatatableComponent } from '../../../shared/datatable/datatable.component';
 import { Router } from '@angular/router';
 import { ExpenseType } from '../../../models/expensetype';
-import { Category } from '../../../models/category';
+import { Category, CategoryModelCreate } from '../../../models/category';
 import { CategoryService } from '../../../services/category.service';
+import { CategoryDialogComponent } from '../category.dialog/category.dialog.component';
+import { ExpenseTypeService } from '../../../services/expensetype.service';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-category.list',
@@ -24,6 +27,7 @@ export class CategoryListComponent implements OnInit {
   tableColumns!: string[];
   columnNames!: string[];
   categoryData!: Category[];
+  categoryCreate: CategoryModelCreate = this.initCategoryCreate();
 
   constructor(private categoryService: CategoryService,
     private router: Router,
@@ -31,14 +35,24 @@ export class CategoryListComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.initializeTableColumns();
     this.refreshData();
-    this.tableColumns = this.categoryService.getTableColumns();
-    this.columnNames = this.categoryService.getColumnNames();
   }
 
-  OnCreate(): void {
-    this.router.navigate(['create-expenseType']);
+  onCreate(): void {
+    const dialogRef = this.dialog.open(CategoryDialogComponent, {
+      data: { ...this.categoryCreate },
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+        this.createCategory(result);
+      }
+    });
   }
+
 
   edit(category: Category): void {
     const categoryId = category.id;
@@ -50,33 +64,50 @@ export class CategoryListComponent implements OnInit {
   }
 
   remove(category: ExpenseType): void {
-    const categoryId = category.id;
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'Are you sure you want to delete this record?',
+      data: 'Are you sure you want to delete this record?'
     });
 
-    dialogRef.afterClosed().subscribe((result: boolean) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.categoryService.delete(categoryId).subscribe(
-          {
-            next: () => {
-              this.snackBar.open('Category was deleted!', '', {
-                duration: 5000,
-                verticalPosition: 'top',
-                horizontalPosition: 'center'
-              });
-              this.refreshData();
-            },
-            error: (err: any) => {
-              this.snackBar.open(err.message, '', {
-                duration: 5000,
-                verticalPosition: 'top',
-                horizontalPosition: 'center'
-              });
-            }
-          });
+        this.deleteCategory(category.id);
       }
     });
   }
 
+  private initializeTableColumns(): void {
+    this.tableColumns = this.categoryService.getTableColumns();
+    this.columnNames = this.categoryService.getColumnNames();
+  }
+
+  private createCategory(category: CategoryModelCreate): void {
+    this.categoryService.create(category).subscribe({
+      next: () => this.showSnackBar('Category was created!'),
+      error: (err: any) => this.showSnackBar(err.message),
+      complete: () => this.refreshData()
+    });
+  }
+
+  private deleteCategory(categoryId: number): void {
+    this.categoryService.delete(categoryId).subscribe({
+      next: () => this.showSnackBar('Category was deleted!'),
+      error: (err: any) => this.showSnackBar(err.message),
+      complete: () => this.refreshData()
+    });
+  }
+
+  private initCategoryCreate(): CategoryModelCreate {
+    return {
+      name: '',
+      expenseTypeId: 0
+    };
+  }
+
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
+    });
+  }
 }

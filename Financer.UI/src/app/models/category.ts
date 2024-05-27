@@ -3,3 +3,8 @@ export interface Category {
   name: string;
   expenseTypeId: number;
 }
+
+export interface CategoryModelCreate {
+  name: string;
+  expenseTypeId: number;
+}

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { endpoints } from "../shared/endpoints/endpoints";
 import { ApiService } from "../helper/api.service";
-import { Category } from "../models/category";
+import { Category, CategoryModelCreate } from "../models/category";
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,8 @@ export class CategoryService {
     return this.apiService.get<Category>(url);
   }
 
-  create(category: Category): Observable<Category> {
-    return this.apiService.post<Category>(this.endpoint, category);
+  create(category: CategoryModelCreate): Observable<CategoryModelCreate> {
+    return this.apiService.post<CategoryModelCreate>(this.endpoint, category);
   }
 
   update(category: Category, id: number): Observable<Category> {
