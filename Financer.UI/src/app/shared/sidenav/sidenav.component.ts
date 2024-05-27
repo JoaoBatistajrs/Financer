@@ -21,7 +21,7 @@ export class SidenavComponent {
     { routerLink: 'bank', icon: 'keyboard_arrow_right', label: 'Banks' },
     { routerLink: 'category', icon: 'keyboard_arrow_right', label: 'Categories' },
     { routerLink: 'register-type', icon: 'keyboard_arrow_right', label: 'Register Type' },
-    { routerLink: 'expense', icon: 'keyboard_arrow_right', label: 'Expenses' },
+    { routerLink: 'expense', icon: 'keyboard_arrow_right', label: 'Expense Type' },
   ];
 
   toggle() {

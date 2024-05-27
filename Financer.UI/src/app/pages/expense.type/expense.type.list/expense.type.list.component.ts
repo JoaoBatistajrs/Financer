@@ -11,6 +11,7 @@ import { DatatableComponent } from '../../../shared/datatable/datatable.componen
 import { Router } from '@angular/router';
 import { ExpenseType } from '../../../models/expensetype';
 import { ExpenseTypeService } from '../../../services/expensetype.service';
+import { ExpenseTypeDialogComponent } from '../expense.type.dialog/expense.type.dialog.component';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ExpenseTypeListComponent implements OnInit {
   tableColumns!: string[];
   columnNames!: string[];
   expenseTypeData!: ExpenseType[];
+  name!: string;
 
   constructor(private expenseTypeService: ExpenseTypeService,
     private router: Router,
@@ -39,8 +41,34 @@ export class ExpenseTypeListComponent implements OnInit {
     // });
   }
 
-  OnCreate(): void {
-    this.router.navigate(['create-expenseType']);
+  onCreate(): void {
+    const dialogRef = this.dialog.open(ExpenseTypeDialogComponent, {
+      data: {name: this.name},
+      width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.expenseTypeService.create(result).subscribe(
+          {
+            next: () => {
+              this.snackBar.open('Expense Type was created!', '', {
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center'
+              });
+              this.refreshData();
+            },
+            error: (err: any) => {
+              this.snackBar.open(err.message, '', {
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center'
+              });
+            }
+          });
+      }
+    });
   }
 
   edit(bank: ExpenseType): void {
