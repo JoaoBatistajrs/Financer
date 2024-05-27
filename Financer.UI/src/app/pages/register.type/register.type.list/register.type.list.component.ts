@@ -1,5 +1,5 @@
 import { ConfirmationDialogComponent } from './../../../shared/confirmation.dialog/confirmation.dialog.component';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -19,7 +19,7 @@ import { RegisterTypeService } from '../../../services/registertype.service';
   templateUrl: './register.type.list.component.html',
   styleUrl: './register.type.list.component.scss'
 })
-export class RegisterTypeListComponent {
+export class RegisterTypeListComponent implements OnInit {
   tableColumns!: string[];
   columnNames!: string[];
   registerTypeData!: RegisterType[];

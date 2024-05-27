@@ -17,11 +17,11 @@ export class SidenavComponent {
   isOpen = true;
 
   navItems = [
-    { routerLink: 'bank', icon: 'build', label: 'Banks' },
-    { routerLink: 'register', icon: 'build', label: 'Registers' },
-    { routerLink: 'expense', icon: 'linear_scale', label: 'Expenses' },
-    { routerLink: 'category', icon: 'settings', label: 'Categories' },
-    { routerLink: 'register-type', icon: 'engineering', label: 'Register Type' },
+    { routerLink: 'register', icon: 'keyboard_arrow_right', label: 'Registers' },
+    { routerLink: 'bank', icon: 'keyboard_arrow_right', label: 'Banks' },
+    { routerLink: 'category', icon: 'keyboard_arrow_right', label: 'Categories' },
+    { routerLink: 'register-type', icon: 'keyboard_arrow_right', label: 'Register Type' },
+    { routerLink: 'expense', icon: 'keyboard_arrow_right', label: 'Expenses' },
   ];
 
   toggle() {

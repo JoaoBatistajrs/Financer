@@ -1,5 +1,5 @@
 import { ConfirmationDialogComponent } from './../../../shared/confirmation.dialog/confirmation.dialog.component';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -20,7 +20,7 @@ import { ExpenseTypeService } from '../../../services/expensetype.service';
   templateUrl: './expense.type.list.component.html',
   styleUrl: './expense.type.list.component.scss'
 })
-export class ExpenseTypeListComponent {
+export class ExpenseTypeListComponent implements OnInit {
   tableColumns!: string[];
   columnNames!: string[];
   expenseTypeData!: ExpenseType[];

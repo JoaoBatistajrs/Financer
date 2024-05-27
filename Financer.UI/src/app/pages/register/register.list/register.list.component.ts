@@ -1,5 +1,5 @@
 import { ConfirmationDialogComponent } from './../../../shared/confirmation.dialog/confirmation.dialog.component';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -20,7 +20,7 @@ import { RegisterService } from '../../../services/register.service';
   templateUrl: './register.list.component.html',
   styleUrl: './register.list.component.scss'
 })
-export class RegisterListComponent {
+export class RegisterListComponent implements OnInit {
   tableColumns!: string[];
   columnNames!: string[];
   registerData!: Register[];

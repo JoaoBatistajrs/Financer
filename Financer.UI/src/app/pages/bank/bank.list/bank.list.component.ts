@@ -1,5 +1,5 @@
 import { ConfirmationDialogComponent } from './../../../shared/confirmation.dialog/confirmation.dialog.component';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
   templateUrl: './bank.list.component.html',
   styleUrl: './bank.list.component.scss'
 })
-export class BankListComponent {
+export class BankListComponent implements OnInit {
   tableColumns!: string[];
   columnNames!: string[];
   bankData!: Bank[];
