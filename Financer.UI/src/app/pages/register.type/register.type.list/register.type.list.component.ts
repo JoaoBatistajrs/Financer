@@ -1,6 +1,6 @@
 import { ConfirmationDialogComponent } from './../../../shared/confirmation.dialog/confirmation.dialog.component';
 import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,11 +11,14 @@ import { DatatableComponent } from '../../../shared/datatable/datatable.componen
 import { Router } from '@angular/router';
 import { RegisterType } from '../../../models/registertype';
 import { RegisterTypeService } from '../../../services/registertype.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { RegisterTypeDialogComponent } from '../register.type.dialog/register.type.dialog.component';
 
 @Component({
   selector: 'app-register.type.list',
   standalone: true,
-  imports: [DatatableComponent, MatButtonModule, MatTooltipModule, MatIconModule, MatCardModule, ReactiveFormsModule],
+  imports: [DatatableComponent, MatButtonModule, MatTooltipModule, MatIconModule, MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
   templateUrl: './register.type.list.component.html',
   styleUrl: './register.type.list.component.scss'
 })
@@ -23,6 +26,7 @@ export class RegisterTypeListComponent implements OnInit {
   tableColumns!: string[];
   columnNames!: string[];
   registerTypeData!: RegisterType[];
+  name!: string;
 
   constructor(private registerTypeService: RegisterTypeService,
     private router: Router,
@@ -33,13 +37,36 @@ export class RegisterTypeListComponent implements OnInit {
     this.refreshData();
     this.tableColumns = this.registerTypeService.getTableColumns();
     this.columnNames = this.registerTypeService.getColumnNames();
-    // this.updateService.updated$.subscribe(() => {
-    //   this.refreshData();
-    // });
   }
 
-  OnCreate(): void {
-    this.router.navigate(['create-bank']);
+  onCreate(): void {
+    const dialogRef = this.dialog.open(RegisterTypeDialogComponent, {
+      data: {name: this.name},
+      width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.registerTypeService.create(result).subscribe(
+          {
+            next: () => {
+              this.snackBar.open('Register Type was created!', '', {
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center'
+              });
+              this.refreshData();
+            },
+            error: (err: any) => {
+              this.snackBar.open(err.message, '', {
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center'
+              });
+            }
+          });
+      }
+    });
   }
 
   edit(registerType: RegisterType): void {

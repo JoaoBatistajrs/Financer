@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { endpoints } from "../shared/endpoints/endpoints";
 import { ApiService } from "../helper/api.service";
-import { RegisterType } from "../models/registertype";
+import { RegisterType, RegisterTypeCreate } from "../models/registertype";
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,8 @@ export class RegisterTypeService {
     return this.apiService.get<RegisterType>(url);
   }
 
-  create(registerType: RegisterType): Observable<RegisterType> {
-    return this.apiService.post<RegisterType>(this.endpoint, registerType);
+  create(registerType: RegisterTypeCreate): Observable<RegisterTypeCreate> {
+    return this.apiService.post<RegisterTypeCreate>(this.endpoint, registerType);
   }
 
   update(registerType: RegisterType, id: number): Observable<RegisterType> {
