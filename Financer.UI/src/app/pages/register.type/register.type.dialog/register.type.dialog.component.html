@@ -2,10 +2,10 @@
 <mat-dialog-content>
   <mat-form-field>
     <mat-label>Register Type Name</mat-label>
-    <input matInput [(ngModel)]="data.name">
+    <input matInput [(ngModel)]="data.name" required>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">CANCEL</button>
-  <button mat-button (click)="onSaveClick()" cdkFocusInitial>CREATE</button>
+  <button mat-button (click)="onSaveClick()" [disabled]="!isFormValid()" cdkFocusInitial>CREATE</button>
 </mat-dialog-actions>

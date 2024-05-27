@@ -2,14 +2,13 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { endpoints } from "../shared/endpoints/endpoints";
 import { ApiService } from "../helper/api.service";
-import { Bank, BankModelCreate } from "../models/bank";
 import { Category } from "../models/category";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-  private endpoint = endpoints.bank;
+  private endpoint = endpoints.categories;
 
   constructor(private apiService: ApiService) {}
 
@@ -22,13 +21,13 @@ export class CategoryService {
     return this.apiService.get<Category>(url);
   }
 
-  create(product: Category): Observable<Category> {
-    return this.apiService.post<Category>(this.endpoint, product);
+  create(category: Category): Observable<Category> {
+    return this.apiService.post<Category>(this.endpoint, category);
   }
 
-  update(product: Category, id: number): Observable<Category> {
+  update(category: Category, id: number): Observable<Category> {
     const url = `${this.endpoint}/${id}`;
-    return this.apiService.put<Category>(url, product);
+    return this.apiService.put<Category>(url, category);
   }
 
   delete(id: number): Observable<Category> {

@@ -11,10 +11,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { ExpenseTypeCreate } from '../../../models/expensetype';
+import { BankModelCreate } from '../../../models/bank';
 
 @Component({
-  selector: 'app-expense.type.dialog',
+  selector: 'app-bank.dialog',
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -26,13 +26,13 @@ import { ExpenseTypeCreate } from '../../../models/expensetype';
     MatDialogActions,
     MatDialogClose,
   ],
-  templateUrl: './expense.type.dialog.component.html',
-  styleUrl: './expense.type.dialog.component.scss'
+  templateUrl: './bank.dialog.component.html',
+  styleUrl: './bank.dialog.component.scss'
 })
-export class ExpenseTypeDialogComponent {
+export class BankDialogComponent {
   constructor(
-    public dialogRef: MatDialogRef<ExpenseTypeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ExpenseTypeCreate,
+    public dialogRef: MatDialogRef<BankDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: BankModelCreate,
   ) {}
 
   onNoClick(): void {
@@ -45,7 +45,6 @@ export class ExpenseTypeDialogComponent {
   }
 
   isFormValid(): boolean {
-    return this.data.name.trim() !== '';
+    return this.data.name.trim() !== '' && this.data.accountBalance > 0;
   }
 }
-

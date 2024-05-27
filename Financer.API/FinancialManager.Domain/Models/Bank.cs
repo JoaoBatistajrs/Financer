@@ -18,5 +18,11 @@ namespace FinancialManager.Domain.Models
             AccountNumber = accountNumber;
             AccountBalance = accountBalance;
         }
+
+        public Bank(string? name,  decimal accountBalance)
+        {
+            Name = name;
+            AccountBalance = accountBalance;
+        }
     }
 }

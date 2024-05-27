@@ -8,5 +8,7 @@ export interface Bank {
 
 export interface BankModelCreate {
   name: string;
-  group?: string | null;
+  accountBalance: number;
+  agency?: string;
+  accountNumber?: string;
 }

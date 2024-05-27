@@ -34,9 +34,6 @@ export class CategoryListComponent implements OnInit {
     this.refreshData();
     this.tableColumns = this.categoryService.getTableColumns();
     this.columnNames = this.categoryService.getColumnNames();
-    // this.updateService.updated$.subscribe(() => {
-    //   this.refreshData();
-    // });
   }
 
   OnCreate(): void {

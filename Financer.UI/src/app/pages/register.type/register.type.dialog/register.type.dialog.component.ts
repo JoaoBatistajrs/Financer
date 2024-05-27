@@ -44,4 +44,8 @@ export class RegisterTypeDialogComponent {
     console.log(this.data)
     this.dialogRef.close(this.data);
   }
+
+  isFormValid(): boolean {
+    return this.data.name.trim() !== '';
+  }
 }

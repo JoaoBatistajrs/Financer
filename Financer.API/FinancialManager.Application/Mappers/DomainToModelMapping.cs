@@ -9,6 +9,7 @@ namespace FinancialManager.Application.Mappers
         public DomainToModelMapping()
         {
             CreateMap<Bank, BankModel>();
+            CreateMap<Bank, BankCreateModel>();
             CreateMap<Category, CategoryModel>();
             CreateMap<RegisterType, RegisterTypeModel>();
             CreateMap<ExpenseType, ExpenseTypeModel>();
