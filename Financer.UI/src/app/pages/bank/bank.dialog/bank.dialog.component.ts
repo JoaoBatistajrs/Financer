@@ -40,7 +40,6 @@ export class BankDialogComponent {
   }
 
   onSaveClick(): void {
-    console.log(this.data)
     this.dialogRef.close(this.data);
   }
 

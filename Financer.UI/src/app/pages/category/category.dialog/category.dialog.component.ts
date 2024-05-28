@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -42,7 +42,7 @@ export class CategoryDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<CategoryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CategoryModelCreate,
     private expenseTypeService: ExpenseTypeService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadExpenseTypes();

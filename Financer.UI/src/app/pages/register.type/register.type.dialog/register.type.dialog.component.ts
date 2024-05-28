@@ -41,7 +41,6 @@ export class RegisterTypeDialogComponent {
   }
 
   onSaveClick(): void {
-    console.log(this.data)
     this.dialogRef.close(this.data);
   }
 

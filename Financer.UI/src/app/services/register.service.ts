@@ -2,13 +2,13 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { endpoints } from "../shared/endpoints/endpoints";
 import { ApiService } from "../helper/api.service";
-import { Register } from "../models/register";
+import { Register, RegisterCreate } from "../models/register";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
-  private endpoint = endpoints.bank;
+  private endpoint = endpoints.registers;
 
   constructor(private apiService: ApiService) {}
 
@@ -21,8 +21,8 @@ export class RegisterService {
     return this.apiService.get<Register>(url);
   }
 
-  create(product: Register): Observable<Register> {
-    return this.apiService.post<Register>(this.endpoint, product);
+  create(product: RegisterCreate): Observable<RegisterCreate> {
+    return this.apiService.post<RegisterCreate>(this.endpoint, product);
   }
 
   update(product: Register, id: number): Observable<Register> {
@@ -36,10 +36,10 @@ export class RegisterService {
   }
 
   getTableColumns(){
-    return ['description','date', 'categoryName', 'amount'];
+    return ['description','date', 'amount', 'bankName', 'categoryName', 'registerTypeName'];
   }
 
   getColumnNames(){
-      return ['Description', 'Date', 'CategoryName', 'Amount'];
+      return ['Description', 'Date', 'Amount', 'Bank', 'Category', 'Type'];
   }
 }

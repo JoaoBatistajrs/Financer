@@ -10,8 +10,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DatatableComponent } from '../../../shared/datatable/datatable.component';
 
 import { Router } from '@angular/router';
-import { Register } from '../../../models/register';
+import { Register, RegisterCreate } from '../../../models/register';
 import { RegisterService } from '../../../services/register.service';
+import { RegisterDialogComponent } from '../register.dialog/register.dialog.component';
 
 @Component({
   selector: 'app-register.list',
@@ -24,6 +25,7 @@ export class RegisterListComponent implements OnInit {
   tableColumns!: string[];
   columnNames!: string[];
   registerData!: Register[];
+  registerCreate: RegisterCreate = this.initRegisterCreate();
 
   constructor(private registerService: RegisterService,
     private router: Router,
@@ -31,16 +33,21 @@ export class RegisterListComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.initializeTableColumns();
     this.refreshData();
-    this.tableColumns = this.registerService.getTableColumns();
-    this.columnNames = this.registerService.getColumnNames();
-    // this.updateService.updated$.subscribe(() => {
-    //   this.refreshData();
-    // });
   }
 
-  OnCreate(): void {
-    this.router.navigate(['create-bank']);
+  onCreate(): void {
+    const dialogRef = this.dialog.open(RegisterDialogComponent, {
+      data: { ...this.registerCreate },
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.createBank(result);
+      }
+    });
   }
 
   edit(register: Register): void {
@@ -53,32 +60,54 @@ export class RegisterListComponent implements OnInit {
   }
 
   remove(register: Register): void {
-    const registerId = register.id;
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'Are you sure you want to delete this record?',
+      data: 'Are you sure you want to delete this record?'
     });
 
-    dialogRef.afterClosed().subscribe((result: boolean) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.registerService.delete(registerId).subscribe(
-          {
-            next: () => {
-              this.snackBar.open('Register was deleted!', '', {
-                duration: 5000,
-                verticalPosition: 'top',
-                horizontalPosition: 'center'
-              });
-              this.refreshData();
-            },
-            error: (err: any) => {
-              this.snackBar.open(err.message, '', {
-                duration: 5000,
-                verticalPosition: 'top',
-                horizontalPosition: 'center'
-              });
-            }
-          });
+        this.deleteRegister(register.id);
       }
+    });
+  }
+
+  private initRegisterCreate(): RegisterCreate {
+    return {
+      description: '',
+      date: new Date(),
+      bankId: 0,
+      categoryId: 0,
+      amount: 0,
+      registerTypeId: 0
+    };
+  }
+
+  private createBank(register: RegisterCreate): void {
+    this.registerService.create(register).subscribe({
+      next: () => this.showSnackBar('Register was created!'),
+      error: (err: any) => this.showSnackBar(err.message),
+      complete: () => this.refreshData()
+    });
+  }
+
+  private initializeTableColumns(): void {
+    this.tableColumns = this.registerService.getTableColumns();
+    this.columnNames = this.registerService.getColumnNames();
+  }
+
+  private deleteRegister(registerId: number): void {
+    this.registerService.delete(registerId).subscribe({
+      next: () => this.showSnackBar('Register was deleted!'),
+      error: (err: any) => this.showSnackBar(err.message),
+      complete: () => this.refreshData()
+    });
+  }
+
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
     });
   }
 
