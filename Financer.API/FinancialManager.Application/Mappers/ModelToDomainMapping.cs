@@ -8,13 +8,18 @@ namespace FinancialManager.Application.Mappers
     {
         public ModelToDomainMapping()
         {
-            CreateMap<RegisterModel, Register>();
+            CreateMap<RegisterModelCreate, Register>();
+            CreateMap<RegisterDetailModel, Register>();
+
             CreateMap<BankModel, Bank>();
             CreateMap<BankCreateModel, Bank>();
-            CreateMap<ExpenseTypeModel, ExpenseType>();
-            CreateMap<RegisterTypeModel, RegisterType>();
+
             CreateMap<CategoryModelCreate, Category>();
             CreateMap<CategoryModel, Category>();
+
+            CreateMap<ExpenseTypeModel, ExpenseType>();
+
+            CreateMap<RegisterTypeModel, RegisterType>();
         }
     }
 }

@@ -13,8 +13,6 @@ import { ExpenseType } from '../../../models/expensetype';
 import { Category, CategoryModelCreate } from '../../../models/category';
 import { CategoryService } from '../../../services/category.service';
 import { CategoryDialogComponent } from '../category.dialog/category.dialog.component';
-import { ExpenseTypeService } from '../../../services/expensetype.service';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-category.list',
@@ -52,7 +50,6 @@ export class CategoryListComponent implements OnInit {
       }
     });
   }
-
 
   edit(category: Category): void {
     const categoryId = category.id;

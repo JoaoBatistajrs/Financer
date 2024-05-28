@@ -2,7 +2,7 @@
 
 namespace FinancialManager.Application.ApiModels.Validations
 {
-    public class RegisterModelValidator : AbstractValidator<RegisterModel>
+    public class RegisterModelValidator : AbstractValidator<RegisterModelCreate>
     {
         public RegisterModelValidator()
         {
@@ -15,12 +15,12 @@ namespace FinancialManager.Application.ApiModels.Validations
                 .GreaterThan(0)
                 .WithMessage("Valor precisa ser maior que zero!");
 
-            RuleFor(x => x.CategoryName)
+            RuleFor(x => x.CategoryId)
                 .NotEmpty()
                 .NotNull()
                 .WithMessage("Categoria precisa ser informada!");
 
-            RuleFor(x => x.BankName)
+            RuleFor(x => x.BankId)
                 .NotEmpty()
                 .NotNull()
                 .WithMessage("Banco precisa ser informado!");

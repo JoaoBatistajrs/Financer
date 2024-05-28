@@ -18,7 +18,7 @@ namespace FinancialManager.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddRegisterAsync([FromBody] RegisterModel registerModel)
+        public async Task<IActionResult> AddRegisterAsync([FromBody] RegisterModelCreate registerModel)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] RegisterModel registerModel)
+        public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] RegisterModelCreate registerModel)
         {
             try
             {

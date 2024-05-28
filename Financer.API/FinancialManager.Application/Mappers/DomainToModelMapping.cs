@@ -14,23 +14,11 @@ namespace FinancialManager.Application.Mappers
             CreateMap<Category, CategoryModelCreate>();
             CreateMap<RegisterType, RegisterTypeModel>();
             CreateMap<ExpenseType, ExpenseTypeModel>();
+            CreateMap<Register, RegisterModelCreate>();
             CreateMap<Register, RegisterDetailModel>()
-                .ForMember(x => x.CategoryName, opt => opt.Ignore())
-                .ForMember(x => x.BankName, opt => opt.Ignore())
-                .ConstructUsing((model, context) =>
-                {
-                    var dto = new RegisterDetailModel
-                    {
-                        BankName = model.Bank.Name,
-                        CategoryName = model.Category.Name,
-                        Amount = model.Amount,
-                        Date = model.Date,
-                        Description = model.Description,
-                        Id = model.Id,
-                        RegisterType = model.RegisterType   
-                    };
-                    return dto;
-                });
+                .ForMember(dest => dest.BankName, opt => opt.MapFrom(src => src.Bank.Name))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+                .ForMember(dest => dest.RegisterTypeName, opt => opt.MapFrom(src => src.RegisterType.Name));
         }
     }
 }
