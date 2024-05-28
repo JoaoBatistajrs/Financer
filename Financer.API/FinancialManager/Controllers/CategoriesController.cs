@@ -18,7 +18,7 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBank([FromBody] CategoryModel categoryModel)
+        public async Task<IActionResult> AddBank([FromBody] CategoryModelCreate categoryModel)
         {
             try
             {

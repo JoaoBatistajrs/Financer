@@ -7,7 +7,7 @@ namespace FinancialManager.Domain.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int ExpenseTypeId {  get; set; }
-        public ExpenseType Type { get; set; }
+        public virtual ExpenseType? Type { get; set; }
         public ICollection<Register> Registers { get; set; }
 
         public Category(string name, int expenseTypeId)

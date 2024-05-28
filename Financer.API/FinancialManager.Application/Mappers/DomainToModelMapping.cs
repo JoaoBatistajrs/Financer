@@ -10,7 +10,8 @@ namespace FinancialManager.Application.Mappers
         {
             CreateMap<Bank, BankModel>();
             CreateMap<Bank, BankCreateModel>();
-            CreateMap<Category, CategoryModel>();
+            CreateMap<Category, CategoryModel>().ForMember(dest => dest.ExpenseTypeName, opt => opt.MapFrom(src => src.Type.Name));
+            CreateMap<Category, CategoryModelCreate>();
             CreateMap<RegisterType, RegisterTypeModel>();
             CreateMap<ExpenseType, ExpenseTypeModel>();
             CreateMap<Register, RegisterDetailModel>()

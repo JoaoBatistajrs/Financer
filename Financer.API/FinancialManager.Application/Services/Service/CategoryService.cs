@@ -11,20 +11,22 @@ namespace FinancialManager.Application.Services.Service
     {
         private readonly IEntitiesRepository<Category> _repository;
         private readonly IMapper _mapper; 
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CategoryService(IEntitiesRepository<Category> categoryRepository, IMapper mapper)
+        public CategoryService(IEntitiesRepository<Category> genericRepository, IMapper mapper, ICategoryRepository categoryRepository)
         {
-            _repository = categoryRepository;
+            _repository = genericRepository;
             _mapper = mapper;
+            _categoryRepository = categoryRepository;
         }
 
-        public async Task<CategoryModel> CreateAsync(CategoryModel categoryDto)
+        public async Task<CategoryModelCreate> CreateAsync(CategoryModelCreate categoryDto)
         {
 
             var category = _mapper.Map<Category>(categoryDto);
             var data = await _repository.CreateAsync(category);
 
-            return _mapper.Map<CategoryModel>(data);
+            return _mapper.Map<CategoryModelCreate>(data);
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -39,9 +41,10 @@ namespace FinancialManager.Application.Services.Service
 
         public async Task<ICollection<CategoryModel>> GetAsync()
         {
-            var category = await _repository.GetAsync();
+            var category = await _categoryRepository.GetAsync();
+            var cartegorymodel = _mapper.Map<ICollection<CategoryModel>>(category);
 
-            return _mapper.Map<ICollection<CategoryModel>>(category);
+            return cartegorymodel;
         }
 
         public async Task<CategoryModel> GetByIdAsync(int id)

@@ -36,7 +36,7 @@ export class CategoryService {
   }
 
   getTableColumns(){
-    return ['name','expenseType'];
+    return ['name','expenseTypeName'];
   }
 
   getColumnNames(){
