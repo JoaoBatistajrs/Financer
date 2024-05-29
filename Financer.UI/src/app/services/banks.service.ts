@@ -36,10 +36,10 @@ export class BankService {
   }
 
   getTableColumns(){
-    return ['name','agency'];
+    return ['name','accountBalance', 'agency', 'accountNumber'];
   }
 
   getColumnNames(){
-      return ['Bank', 'Agency'];
+      return ['Bank', 'Balance', 'Agency', 'Account Number'];
   }
 }

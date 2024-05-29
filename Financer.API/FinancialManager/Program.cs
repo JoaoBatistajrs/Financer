@@ -1,4 +1,6 @@
+using FinancialManager.InfraStructure.Context;
 using FinancialManager.IoC;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +9,6 @@ builder.Services.AddInfraStrucuture(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
 
 var frontendUrl = builder.Configuration.GetValue<string>($"Frontend:Url");
-Console.WriteLine(frontendUrl);
 
 builder.Services.AddCors(options =>
 {
@@ -34,6 +35,11 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<FinancialManagerDbContext>();
+    dbContext.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {
