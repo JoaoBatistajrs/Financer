@@ -11,13 +11,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+
 namespace FinancialManager.IoC
 {
     public static class DependecyInjection
     {
         public static IServiceCollection AddInfraStrucuture(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<FinancialManagerDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("FinancerApiConnectionString")));
+            services.AddDbContext<FinancialManagerDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("FinancerApiConnectionString")));
 
             services.AddScoped<IEntitiesRepository<Register>, EntitiesRepository<Register>> ();
             services.AddScoped<IEntitiesRepository<Bank>, EntitiesRepository<Bank>>();
