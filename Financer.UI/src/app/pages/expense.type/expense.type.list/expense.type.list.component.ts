@@ -59,8 +59,17 @@ export class ExpenseTypeListComponent implements OnInit {
     });
   }
 
-  edit(expenseType: ExpenseType): void {
-    this.router.navigate(['edit-expenseType', expenseType.id]);
+  onEdit(expenseType: ExpenseType): void {
+    const dialogRef = this.dialog.open(ExpenseTypeDialogComponent, {
+      data: { ...expenseType },
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateExpenseType(result);
+      }
+    });
   }
 
   refreshData(): void {
@@ -87,6 +96,14 @@ export class ExpenseTypeListComponent implements OnInit {
   private createExpenseType(expenseType: ExpenseType): void {
     this.expenseTypeService.create(expenseType).subscribe({
       next: () => this.showSnackBar('Expense Type was created!'),
+      error: (err: any) => this.showSnackBar(err.message),
+      complete: () => this.refreshData()
+    });
+  }
+
+  private updateExpenseType(expenseType: ExpenseType): void {
+    this.expenseTypeService.update(expenseType, expenseType.id,).subscribe({
+      next: () => this.showSnackBar('Expense Type was updated!'),
       error: (err: any) => this.showSnackBar(err.message),
       complete: () => this.refreshData()
     });

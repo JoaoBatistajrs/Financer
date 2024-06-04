@@ -49,7 +49,7 @@ namespace FinancialManager.Application.Services.Service
 
         public async Task UpdateAsync(int id, ExpenseTypeModel expenseTypeModel)
         {
-            var expenseType = await _repository.GetByIdAsync(expenseTypeModel.Id);
+            var expenseType = _mapper.Map<ExpenseType>(expenseTypeModel);
 
             await _repository.UpdateAsync(id, expenseType);
         }

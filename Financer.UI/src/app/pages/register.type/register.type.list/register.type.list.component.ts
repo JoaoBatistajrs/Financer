@@ -64,8 +64,17 @@ export class RegisterTypeListComponent implements OnInit {
     });
   }
 
-  edit(registerType: RegisterType): void {
-    this.router.navigate(['edit-registerType', registerType.id]);
+  onEdit(registerType: RegisterType): void {
+    const dialogRef = this.dialog.open(RegisterTypeDialogComponent, {
+      data: { ...registerType },
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateRegisterType(result);
+      }
+    });
   }
 
   refreshData(): void {
@@ -92,6 +101,14 @@ export class RegisterTypeListComponent implements OnInit {
   private createRegisterType(registerType: RegisterType): void {
     this.registerTypeService.create(registerType).subscribe({
       next: () => this.showSnackBar('Register Type was created!'),
+      error: (err: any) => this.showSnackBar(err.message),
+      complete: () => this.refreshData()
+    });
+  }
+
+  private updateRegisterType(registerType: RegisterType): void {
+    this.registerTypeService.update(registerType, registerType.id,).subscribe({
+      next: () => this.showSnackBar('Expense Type was updated!'),
       error: (err: any) => this.showSnackBar(err.message),
       complete: () => this.refreshData()
     });

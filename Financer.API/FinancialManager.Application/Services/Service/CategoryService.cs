@@ -54,11 +54,9 @@ namespace FinancialManager.Application.Services.Service
             return _mapper.Map<CategoryModel>(category);
         }
 
-        public async Task UpdateAsync(int id, CategoryModel categoryDto)
+        public async Task UpdateAsync(int id, CategoryModel categoryModel)
         {
-            var validation = new CategoryModelValidator().Validate(categoryDto);
-
-            var category = await _repository.GetByIdAsync(categoryDto.Id);
+            var category = _mapper.Map<Category>(categoryModel);
 
             await _repository.UpdateAsync(id, category);
         }

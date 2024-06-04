@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -7,11 +7,11 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
-import {FormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { BankModelCreate } from '../../../models/bank';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BankModelCreate, Bank } from '../../../models/bank';
 
 @Component({
   selector: 'app-bank.dialog',
@@ -30,10 +30,14 @@ import { BankModelCreate } from '../../../models/bank';
   styleUrl: './bank.dialog.component.scss'
 })
 export class BankDialogComponent {
+  isEditMode: boolean;
+
   constructor(
     public dialogRef: MatDialogRef<BankDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: BankModelCreate,
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: BankModelCreate | Bank,
+  ) {
+    this.isEditMode = (data as Bank).id !== undefined;
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

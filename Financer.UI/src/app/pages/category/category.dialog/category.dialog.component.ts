@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { CategoryModelCreate } from '../../../models/category';
+import { Category, CategoryModelCreate } from '../../../models/category';
 import { ExpenseTypeService } from '../../../services/expensetype.service';
 import { ExpenseType } from '../../../models/expensetype';
 import { CommonModule } from '@angular/common';
@@ -37,12 +37,15 @@ import { CommonModule } from '@angular/common';
 })
 export class CategoryDialogComponent implements OnInit {
   expenseTypes: ExpenseType[] = [];
+  isEditMode: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<CategoryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CategoryModelCreate,
     private expenseTypeService: ExpenseTypeService
-  ) { }
+  ) {
+    this.isEditMode = (data as Category).id !== undefined;
+  }
 
   ngOnInit(): void {
     this.loadExpenseTypes();

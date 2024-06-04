@@ -59,8 +59,17 @@ export class BankListComponent implements OnInit {
     });
   }
 
-  edit(bank: Bank): void {
-    this.router.navigate(['edit-bank', bank.id]);
+  onEdit(bank: Bank): void {
+    const dialogRef = this.dialog.open(BankDialogComponent, {
+      data: { ...bank },
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateBank(result);
+      }
+    });
   }
 
   refreshData(): void {
@@ -96,6 +105,14 @@ export class BankListComponent implements OnInit {
   private createBank(bank: BankModelCreate): void {
     this.bankService.create(bank).subscribe({
       next: () => this.showSnackBar('Bank Account was created!'),
+      error: (err: any) => this.showSnackBar(err.message),
+      complete: () => this.refreshData()
+    });
+  }
+
+  private updateBank(bank: Bank): void {
+    this.bankService.update(bank, bank.id,).subscribe({
+      next: () => this.showSnackBar('Bank Account was updated!'),
       error: (err: any) => this.showSnackBar(err.message),
       complete: () => this.refreshData()
     });

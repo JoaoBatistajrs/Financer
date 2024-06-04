@@ -12,7 +12,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { RegisterCreate } from '../../../models/register';
+import { Register, RegisterCreate } from '../../../models/register';
 import { ExpenseType } from '../../../models/expensetype';
 import { Bank } from '../../../models/bank';
 import { Category } from '../../../models/category';
@@ -48,6 +48,7 @@ export class RegisterDialogComponent implements OnInit {
   registerTypes: ExpenseType[] = [];
   banks: Bank[] = [];
   categories: Category[] = [];
+  isEditMode: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<RegisterDialogComponent>,
@@ -55,7 +56,9 @@ export class RegisterDialogComponent implements OnInit {
     private registerTypeService: RegisterTypeService,
     private bankService: BankService,
     private categoryService: CategoryService,
-  ) { }
+  ) {
+    this.isEditMode = (data as Register).id !== undefined;
+  }
 
   ngOnInit(): void {
     this.loadSelectFields();

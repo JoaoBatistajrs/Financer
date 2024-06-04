@@ -11,7 +11,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { RegisterTypeCreate } from '../../../models/registertype';
+import { RegisterType, RegisterTypeCreate } from '../../../models/registertype';
 
 
 @Component({
@@ -31,10 +31,15 @@ import { RegisterTypeCreate } from '../../../models/registertype';
   styleUrl: './register.type.dialog.component.scss'
 })
 export class RegisterTypeDialogComponent {
+
+  isEditMode: boolean;
+
   constructor(
     public dialogRef: MatDialogRef<RegisterTypeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RegisterTypeCreate,
-  ) {}
+  ) {
+    this.isEditMode = (data as RegisterType).id !== undefined;
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

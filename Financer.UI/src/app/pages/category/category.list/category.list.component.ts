@@ -50,9 +50,17 @@ export class CategoryListComponent implements OnInit {
     });
   }
 
-  edit(category: Category): void {
-    const categoryId = category.id;
-    this.router.navigate(['edit-expenseType', categoryId]);
+  onEdit(bank: Category): void {
+    const dialogRef = this.dialog.open(CategoryDialogComponent, {
+      data: { ...bank },
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateCategory(result);
+      }
+    });
   }
 
   refreshData(): void {
@@ -79,6 +87,14 @@ export class CategoryListComponent implements OnInit {
   private createCategory(category: CategoryModelCreate): void {
     this.categoryService.create(category).subscribe({
       next: () => this.showSnackBar('Category was created!'),
+      error: (err: any) => this.showSnackBar(err.message),
+      complete: () => this.refreshData()
+    });
+  }
+
+  private updateCategory(category: Category): void {
+    this.categoryService.update(category, category.id,).subscribe({
+      next: () => this.showSnackBar('Category was updated!'),
       error: (err: any) => this.showSnackBar(err.message),
       complete: () => this.refreshData()
     });

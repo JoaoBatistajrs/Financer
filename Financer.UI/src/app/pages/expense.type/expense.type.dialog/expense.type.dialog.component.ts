@@ -11,7 +11,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { ExpenseTypeCreate } from '../../../models/expensetype';
+import { ExpenseType, ExpenseTypeCreate } from '../../../models/expensetype';
 
 @Component({
   selector: 'app-expense.type.dialog',
@@ -30,10 +30,14 @@ import { ExpenseTypeCreate } from '../../../models/expensetype';
   styleUrl: './expense.type.dialog.component.scss'
 })
 export class ExpenseTypeDialogComponent {
+  isEditMode: boolean;
+
   constructor(
     public dialogRef: MatDialogRef<ExpenseTypeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ExpenseTypeCreate,
-  ) {}
+  ) {
+    this.isEditMode = (data as ExpenseType).id !== undefined;
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

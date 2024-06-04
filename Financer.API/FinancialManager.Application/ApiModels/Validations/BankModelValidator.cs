@@ -9,7 +9,7 @@ namespace FinancialManager.Application.ApiModels.Validations
             RuleFor(x => x.Name)
                 .NotEmpty()
                 .NotNull()
-                .WithMessage("Nome precisa ser informada!");
+                .WithMessage("Nome precisa ser informado!");
         }
     }
 }

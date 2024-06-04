@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FinancialManager.IoC
 {
-    public static class DependecyInjection
+    public static class DependencyInjection
     {
         public static IServiceCollection AddInfraStrucuture(this IServiceCollection services, IConfiguration configuration)
         {

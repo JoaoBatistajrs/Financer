@@ -49,12 +49,9 @@ namespace FinancialManager.Services.Service
             return _mapper.Map<RegisterDetailModel>(register);
         }
 
-        public async Task UpdateAsync(int id, RegisterModelCreate registerDto)
+        public async Task UpdateAsync(int id, RegisterModelCreate registerModel)
         {
-            var register = await _genericRepository.GetByIdAsync(registerDto.Id);
-            
-            register.Edit(register.Description, register.Date, registerDto.BankId, registerDto.CategoryId, register.Amount, register.RegisterTypeId);
-
+            var register = _mapper.Map<Register>(registerModel);
 
             await _genericRepository.UpdateAsync(id, register);
         }

@@ -62,6 +62,7 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPut]
+        [Route("{id}")]
         public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] BankModel bankModel)
         {
             try

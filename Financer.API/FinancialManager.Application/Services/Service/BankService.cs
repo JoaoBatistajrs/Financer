@@ -47,9 +47,9 @@ namespace FinancialManager.Application.Services.Service
             return _mapper.Map<BankModel>(bank);
         }
 
-        public async Task UpdateAsync(int id, BankModel bankDto)
+        public async Task UpdateAsync(int id, BankModel bankModel)
         {
-            var bank = await _repository.GetByIdAsync(bankDto.Id);
+            var bank = _mapper.Map<Bank>(bankModel);
 
             await _repository.UpdateAsync(id, bank);
         }

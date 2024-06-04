@@ -61,6 +61,7 @@ namespace FinancialManager.Api.Controllers
         }
 
         [HttpPut]
+        [Route("{id}")]
         public async Task<IActionResult> UpdateExpenseTypeAsync(int id, [FromBody] RegisterTypeModel registerTypeModel)
         {
             try

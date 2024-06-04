@@ -49,7 +49,7 @@ namespace FinancialManager.Application.Services.Service
 
         public async Task UpdateAsync(int id, RegisterTypeModel registerTypeModel)
         {
-            var registerType = await _repository.GetByIdAsync(registerTypeModel.Id);
+            var registerType = _mapper.Map<RegisterType>(registerTypeModel);
 
             await _repository.UpdateAsync(id, registerType);
         }

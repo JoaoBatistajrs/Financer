@@ -25,7 +25,7 @@ export class BankService {
     return this.apiService.post<Bank>(this.endpoint, product);
   }
 
-  update(product: BankModelCreate, id: number): Observable<Bank> {
+  update(product: Bank, id: number): Observable<Bank> {
     const url = `${this.endpoint}/${id}`;
     return this.apiService.put<Bank>(url, product);
   }

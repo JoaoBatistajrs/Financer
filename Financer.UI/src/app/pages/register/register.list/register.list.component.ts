@@ -45,14 +45,22 @@ export class RegisterListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.createBank(result);
+        this.createRegister(result);
       }
     });
   }
 
-  edit(register: Register): void {
-    const registerId = register.id;
-    this.router.navigate(['edit-bank', registerId]);
+  onEdit(register: Register): void {
+    const dialogRef = this.dialog.open(RegisterDialogComponent, {
+      data: { ...register },
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateRegister(result);
+      }
+    });
   }
 
   refreshData(): void {
@@ -78,13 +86,25 @@ export class RegisterListComponent implements OnInit {
       bankId: 0,
       categoryId: 0,
       amount: 0,
-      registerTypeId: 0
+      registerTypeId: 0,
+      bankName: '',
+      categoryName: '',
+      registerTypeName: '',
+      id: 0
     };
   }
 
-  private createBank(register: RegisterCreate): void {
+  private createRegister(register: RegisterCreate): void {
     this.registerService.create(register).subscribe({
       next: () => this.showSnackBar('Register was created!'),
+      error: (err: any) => this.showSnackBar(err.message),
+      complete: () => this.refreshData()
+    });
+  }
+
+  private updateRegister(register: Register): void {
+    this.registerService.update(register, register.id,).subscribe({
+      next: () => this.showSnackBar('Expense Type was updated!'),
       error: (err: any) => this.showSnackBar(err.message),
       complete: () => this.refreshData()
     });

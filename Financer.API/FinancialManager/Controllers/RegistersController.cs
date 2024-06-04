@@ -62,6 +62,7 @@ namespace FinancialManager.Controllers
         }
 
         [HttpPut]
+        [Route("{id}")]
         public async Task<IActionResult> UpdateBankAsync(int id, [FromBody] RegisterModelCreate registerModel)
         {
             try
