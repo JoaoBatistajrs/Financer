@@ -32,7 +32,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Expense Type</mat-label>
+    <mat-label>Register Type</mat-label>
     <mat-select [(ngModel)]="data.registerTypeId" required>
       <mat-option *ngFor="let register of registerTypes" [value]="register.id">
         {{ register.name }}
