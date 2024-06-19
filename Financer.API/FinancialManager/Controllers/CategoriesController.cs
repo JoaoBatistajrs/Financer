@@ -1,6 +1,5 @@
 ﻿using FinancialManager.Application.ApiModels;
 using FinancialManager.Application.Services.Interface;
-using FinancialManager.Application.Services.Service;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,3 +1,5 @@
+using FinancialManager.Application.Services.Interface;
+using FinancialManager.Application.Services.Service;
 using FinancialManager.InfraStructure.Context;
 using FinancialManager.IoC;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +25,13 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
+
+builder.Services.AddHttpClient<IChatGptService, ChatGptService>(client =>
+{
+    var apiKey = builder.Configuration["OpenAI:ApiKey"];
+    client.DefaultRequestHeaders.Authorization =
+        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
