@@ -39,7 +39,7 @@ namespace FinancialManager.IoC
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IExpenseTypeService, ExpenseTypeService>();
             services.AddScoped<IRegisterTypeService, RegisterTypeService>();
-            services.AddScoped<IChatGptService, ChatGptService>();
+            services.AddScoped<IOpenAILibService, OpenAILibService>();
 
             return services;
         }

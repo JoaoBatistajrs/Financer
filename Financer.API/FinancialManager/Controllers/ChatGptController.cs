@@ -7,28 +7,27 @@ namespace FinancialManager.Api.Controllers
     [ApiController]
     public class ChatGptController : Controller
     {
-        private readonly IChatGptService _chatGptService;
-
-        public ChatGptController(IChatGptService service)
+        private readonly IOpenAILibService _openAILibService; 
+        public ChatGptController(IOpenAILibService openIALibService)
         {
-            _chatGptService = service;
+            _openAILibService = openIALibService; 
         }
 
-        [HttpPost("send-request")]
-        public async Task<IActionResult> SendRequest([FromBody] UserRequest request)
+        [HttpGet("chat")]
+        public async Task<IActionResult> SendRequest()
         {
-            if (string.IsNullOrEmpty(request.Content))
-            {
-                return BadRequest("Request content cannot be empty.");
-            }
+            var result = await _openAILibService.CallChatStreamimg();
 
-            var response = await _chatGptService.SendRequestAsync(request.Content);
-            return Ok(new { response });
+            return Ok(result);
         }
+
+        [HttpGet("image-read")]
+        public async Task<IActionResult> ReadImage()
+        {
+            var result =  _openAILibService.GetRegisterFromImage();
+
+            return Ok(result);
+        }
+
     }
-}
-
-public class UserRequest
-{
-    public string Content { get; set; }
 }
