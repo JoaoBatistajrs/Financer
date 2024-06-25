@@ -5,7 +5,6 @@ namespace FinancialManager.Application.Services.Interface
 {
     public interface IOpenAILibService
     {
-        Task<ChatMessageContentPart> CallChatStreamimg();
-        RegisterModelCreate GetRegisterFromImage();
+        RegisterModelCreate GetRegisterFromImage(Stream imageStream);
     }
 }

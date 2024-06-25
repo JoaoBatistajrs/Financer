@@ -8,30 +8,17 @@ namespace FinancialManager.Application.Services.Service
 {
     public class OpenAILibService : IOpenAILibService
     {
-        public async Task<ChatMessageContentPart> CallChatStreamimg()
+        public RegisterModelCreate GetRegisterFromImage(Stream imageStream)
         {
-            ChatClient client = new(model: "gpt-4o", "");
-
-            UserChatMessage userMessage = new UserChatMessage();
-
-            ChatCompletion completion = await client.CompleteChatAsync(userMessage);
-
-            return completion.Content.FirstOrDefault().Text;
-        }
-
-        public RegisterModelCreate GetRegisterFromImage()
-        {
-            var imageResult = ConvertImageToJson();
+            var imageResult = ConvertImageToJson(imageStream);
             var result = ParseToObject(imageResult);
             return result;
         }
 
-        private string ConvertImageToJson()
+        private string ConvertImageToJson(Stream imageStream)
         {
             ChatClient client = new(model: "gpt-4o", "");
 
-            string imageFilePath = "C:\\Users\\joao.santos\\OneDrive - Programmers Beyond IT\\Área de Trabalho\\cupom.jpeg";
-            using Stream imageStream = File.OpenRead(imageFilePath);
             BinaryData imageBytes = BinaryData.FromStream(imageStream);
 
             List<ChatMessage> messages = PrepareContextMessages(imageBytes);
@@ -52,7 +39,7 @@ namespace FinancialManager.Application.Services.Service
                     ChatMessageContentPart.CreateTextMessageContentPart(
                         "Please return the data from this image as a Json object with the follow fields," +
                         "Description it should be a few words about this receipt," +
-                        "Date it should be the date from the receipt," +
+                        "Date it should be the date from the receipt, and should be in DateTime Format" +
                         "BankId it should be equals 1," +
                         "CategoryId it should be equals 1," +
                         "Amount it should be equals the total amount of the receipt," +
@@ -67,19 +54,11 @@ namespace FinancialManager.Application.Services.Service
         {
             try
             {
-                if (jsonString.StartsWith("json\n"))
-                {
-                    jsonString = jsonString.Substring(5);
-                }
+                FormatJsonResult(jsonString);
 
-                var settings = new JsonSerializerSettings
-                {
-                    DateFormatString = "dd/MM/yyyy HH:mm:ss",
-                    DateParseHandling = DateParseHandling.DateTime,
-                    Converters = new List<JsonConverter> { new StringEnumConverter() }
-                };
+                var register = JsonConvert.DeserializeObject<RegisterModelCreate>(jsonString);
 
-                var register = JsonConvert.DeserializeObject<RegisterModelCreate>(jsonString, settings);
+                FormatDate(register);
 
                 if (register == null)
                 {
@@ -100,7 +79,19 @@ namespace FinancialManager.Application.Services.Service
             }
         }
 
+        private void FormatJsonResult(string jsonString)
+        {
+            if (jsonString.StartsWith("json\n"))
+            {
+                jsonString = jsonString.Substring(5);
+            }
+        }
 
+        private void FormatDate(RegisterModelCreate register)
+        {
+            var dataUTC = register.Date.ToUniversalTime();
+            register.Date = dataUTC;
+        }
     }
 }
 

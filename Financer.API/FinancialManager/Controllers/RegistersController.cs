@@ -1,4 +1,5 @@
 ﻿using FinancialManager.Application.ApiModels;
+using FinancialManager.Application.Services.Interface;
 using FinancialManager.Services.Interface;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace FinancialManager.Controllers
     public class RegistersController : ControllerBase
     {
         private readonly IRegisterService _registerService;
+        private readonly IOpenAILibService _openAILibService;
 
-        public RegistersController(IRegisterService registerService)
+        public RegistersController(IRegisterService registerService, IOpenAILibService openAILibService)
         {
             _registerService = registerService;
+            _openAILibService = openAILibService;
         }
 
 
@@ -22,6 +25,27 @@ namespace FinancialManager.Controllers
         {
             try
             {
+                var result = await _registerService.CreateAsync(registerModel);
+                return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { Errors = ex.Errors });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+
+            }
+        }
+
+        [HttpPost("add-with-image")]
+        public async Task<IActionResult> AddRegisterAsync(IFormFile file)
+        {
+            try
+            {
+                var registerModel = _openAILibService.GetRegisterFromImage(file.OpenReadStream());
+              
                 var result = await _registerService.CreateAsync(registerModel);
                 return Ok(result);
             }
