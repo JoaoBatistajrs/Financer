@@ -1,26 +1,39 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input'
+import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
 
 @Component({
   selector: 'app-datatable',
   templateUrl: './datatable.component.html',
   styleUrls: ['./datatable.component.scss'],
   standalone: true,
-  providers: [CurrencyPipe],
-  imports: [MatProgressBarModule, MatTableModule, MatPaginatorModule, MatSortModule, CommonModule, MatFormFieldModule, MatInputModule, MatCardModule, MatToolbarModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatTooltipModule]
+  providers: [CurrencyPipe, DatePipe],
+  imports: [
+    MatProgressBarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTooltipModule
+  ]
 })
 export class DatatableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -58,17 +71,24 @@ export class DatatableComponent implements AfterViewInit {
     this.cdr.detectChanges();
   }
 
-  applyFilter(event: Event){
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if(this.dataSource.paginator){
+    if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
   getSortingData(item: any, header: string): any {
-    return header === 'colName' ? item[header].toLowerCase() : item[header].toLowerCase();
+    const value = item[header];
+    if (this.isNumber(value)) {
+      return value;
+    }
+    if (this.isDate(value)) {
+      return value.getTime();
+    }
+    return value.toString().toLowerCase();
   }
 
   editItem(item: any): void {
@@ -85,5 +105,10 @@ export class DatatableComponent implements AfterViewInit {
 
   isNumber(value: any): boolean {
     return typeof value === 'number';
+  }
+
+  isDate(value: any): boolean {
+    const date = new Date(value);
+    return !isNaN(date.getTime());
   }
 }

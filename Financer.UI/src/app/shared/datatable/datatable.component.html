@@ -16,11 +16,16 @@
       <ng-container *ngFor="let colName of dataColumns; index as i;" [matColumnDef]="colName">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{ columnNames[i] }} </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <ng-container *ngIf="isNumber(element[colName]); else normalCell">
+          <ng-container *ngIf="isNumber(element[colName]); else dateOrNormalCell">
             {{ element[colName] | currency }}
           </ng-container>
-          <ng-template #normalCell>
-            {{ element[colName] }}
+          <ng-template #dateOrNormalCell>
+            <ng-container *ngIf="isDate(element[colName]); else normalCell">
+              {{ element[colName] | date:'shortDate' }}
+            </ng-container>
+            <ng-template #normalCell>
+              {{ element[colName] }}
+            </ng-template>
           </ng-template>
         </mat-cell>
       </ng-container>
