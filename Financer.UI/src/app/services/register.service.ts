@@ -25,6 +25,13 @@ export class RegisterService {
     return this.apiService.post<RegisterCreate>(this.endpoint, product);
   }
 
+  createWithImage(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.apiService.post<any>(`${this.endpoint}/add-with-image`, formData);
+  }
+
   update(product: Register, id: number): Observable<Register> {
     const url = `${this.endpoint}/${id}`;
     return this.apiService.put<Register>(url, product);

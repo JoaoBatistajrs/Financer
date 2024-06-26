@@ -1,8 +1,17 @@
 <div class="table-container">
-  <button class="custom-button" mat-raised-button (click)="onCreate()">
-    CREATE REGISTER
-    <mat-icon>add</mat-icon>
-  </button>
+  <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)">
+
+  <div class="button-container">
+    <button class="custom-button" mat-raised-button (click)="onCreate()">
+      CREATE REGISTER
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <button class="custom-button" mat-raised-button (click)="onUploadReceipt()">
+      UPLOAD RECEIPT
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 
   <app-datatable
     [dataColumns]="tableColumns"

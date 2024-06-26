@@ -18,7 +18,7 @@ import { Bank } from '../../../models/bank';
 import { Category } from '../../../models/category';
 import { BankService } from '../../../services/banks.service';
 import { CategoryService } from '../../../services/category.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { RegisterTypeService } from '../../../services/registertype.service';
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -39,7 +39,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(), CurrencyPipe],
   templateUrl: './register.dialog.component.html',
   styleUrl: './register.dialog.component.scss'
 })

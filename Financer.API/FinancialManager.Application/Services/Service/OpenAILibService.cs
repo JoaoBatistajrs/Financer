@@ -1,7 +1,6 @@
 ﻿using FinancialManager.Application.ApiModels;
 using FinancialManager.Application.Services.Interface;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using OpenAI.Chat;
 
 namespace FinancialManager.Application.Services.Service
@@ -47,25 +46,24 @@ namespace FinancialManager.Application.Services.Service
                     ChatMessageContentPart.CreateImageMessageContentPart(imageBytes, "image/jpeg")
                 })
             };
-
         }
 
         private RegisterModelCreate ParseToObject(string jsonString)
         {
             try
             {
-                FormatJsonResult(jsonString);
+                var jsonFomated = FormatJsonResult(jsonString);
 
-                var register = JsonConvert.DeserializeObject<RegisterModelCreate>(jsonString);
+                var register = JsonConvert.DeserializeObject<RegisterModelCreate>(jsonFomated);
 
-                FormatDate(register);
+                var registerFormated = FormatDate(register);
 
-                if (register == null)
+                if (registerFormated == null)
                 {
                     throw new Exception("Deserialization returned null");
                 }
 
-                return register;
+                return registerFormated;
             }
             catch (JsonException jsonEx)
             {
@@ -79,18 +77,21 @@ namespace FinancialManager.Application.Services.Service
             }
         }
 
-        private void FormatJsonResult(string jsonString)
+        private string FormatJsonResult(string jsonString)
         {
             if (jsonString.StartsWith("json\n"))
             {
-                jsonString = jsonString.Substring(5);
+                return jsonString = jsonString.Substring(5);
             }
+            return jsonString;
         }
 
-        private void FormatDate(RegisterModelCreate register)
+        private RegisterModelCreate FormatDate(RegisterModelCreate register)
         {
             var dataUTC = register.Date.ToUniversalTime();
             register.Date = dataUTC;
+
+            return register;
         }
     }
 }

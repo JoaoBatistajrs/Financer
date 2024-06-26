@@ -1,5 +1,5 @@
 import { ConfirmationDialogComponent } from './../../../shared/confirmation.dialog/confirmation.dialog.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -22,6 +22,9 @@ import { RegisterDialogComponent } from '../register.dialog/register.dialog.comp
   styleUrl: './register.list.component.scss'
 })
 export class RegisterListComponent implements OnInit {
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
   tableColumns!: string[];
   columnNames!: string[];
   registerData!: Register[];
@@ -102,6 +105,18 @@ export class RegisterListComponent implements OnInit {
     });
   }
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.registerService.createWithImage(file).subscribe({
+        next: () => this.showSnackBar('Register was created!'),
+        error: (err: any) => this.showSnackBar(err.message),
+        complete: () => this.refreshData()
+      });
+    }
+  }
+
   private updateRegister(register: Register): void {
     this.registerService.update(register, register.id,).subscribe({
       next: () => this.showSnackBar('Expense Type was updated!'),
@@ -130,5 +145,10 @@ export class RegisterListComponent implements OnInit {
       horizontalPosition: 'center'
     });
   }
+
+  onUploadReceipt(): void {
+    this.fileInput.nativeElement.click();
+  }
+
 
 }
