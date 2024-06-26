@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input'
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './datatable.component.html',
   styleUrls: ['./datatable.component.scss'],
   standalone: true,
+  providers: [CurrencyPipe],
   imports: [MatProgressBarModule, MatTableModule, MatPaginatorModule, MatSortModule, CommonModule, MatFormFieldModule, MatInputModule, MatCardModule, MatToolbarModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatTooltipModule]
 })
 export class DatatableComponent implements AfterViewInit {
@@ -80,5 +81,9 @@ export class DatatableComponent implements AfterViewInit {
 
   checkboxChanged(item: any): void {
     this.checkboxChangeEvent.emit(item);
+  }
+
+  isNumber(value: any): boolean {
+    return typeof value === 'number';
   }
 }
