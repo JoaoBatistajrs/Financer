@@ -24,27 +24,15 @@ namespace FinancialManager.Application.Services.Service
 
             ChatCompletion chatCompletion = client.CompleteChat(messages);
 
-            string text = chatCompletion.Content.FirstOrDefault().Text;
-            return text.Trim('`', '\n');
+            return chatCompletion.Content.FirstOrDefault().Text;
         }
 
         private List<ChatMessage> PrepareContextMessages(BinaryData imageBytes)
         {
             return new List<ChatMessage>
             {
-                new UserChatMessage(
-                new List<ChatMessageContentPart>
-                {
-                    ChatMessageContentPart.CreateTextMessageContentPart(
-                        "Please return the data from this image as a Json object with the follow fields," +
-                        "Description it should be a few words about this receipt," +
-                        "Date it should be the date from the receipt, and should be in DateTime Format" +
-                        "BankId it should be equals 1," +
-                        "CategoryId it should be equals 1," +
-                        "Amount it should be equals the total amount of the receipt," +
-                        "RegisterTypeId it should be equals 1"),
-                    ChatMessageContentPart.CreateImageMessageContentPart(imageBytes, "image/jpeg")
-                })
+                new SystemChatMessage(DefineSystemMessages()),
+                new UserChatMessage(DefineUserChatMessages(imageBytes)),
             };
         }
 
@@ -52,18 +40,14 @@ namespace FinancialManager.Application.Services.Service
         {
             try
             {
-                var jsonFomated = FormatJsonResult(jsonString);
+                var register = JsonConvert.DeserializeObject<RegisterModelCreate>(jsonString);
 
-                var register = JsonConvert.DeserializeObject<RegisterModelCreate>(jsonFomated);
-
-                var registerFormated = FormatDate(register);
-
-                if (registerFormated == null)
+                if (register == null)
                 {
                     throw new Exception("Deserialization returned null");
                 }
 
-                return registerFormated;
+                return register;
             }
             catch (JsonException jsonEx)
             {
@@ -77,22 +61,30 @@ namespace FinancialManager.Application.Services.Service
             }
         }
 
-        private string FormatJsonResult(string jsonString)
+        private List<ChatMessageContentPart> DefineUserChatMessages(BinaryData imageBytes)
         {
-            if (jsonString.StartsWith("json\n"))
+            return new List<ChatMessageContentPart>
             {
-                return jsonString = jsonString.Substring(5);
-            }
-            return jsonString;
+                ChatMessageContentPart.CreateTextMessageContentPart(
+                    "Please validate this image"
+                ),
+                ChatMessageContentPart.CreateImageMessageContentPart(imageBytes, "image/jpeg")
+            };
         }
 
-        private RegisterModelCreate FormatDate(RegisterModelCreate register)
+        private string DefineSystemMessages()
         {
-            var dataUTC = register.Date.ToUniversalTime();
-            register.Date = dataUTC;
-
-            return register;
+            return "You are going to receive images of receipts, " +
+                   "and should return an output as a JSON object with the following fields: " +
+                   "Description (a few words about this receipt), " +
+                   "Date (the date from the receipt, in UTC DateTime Format), " +
+                   "BankId (always 1), " +
+                   "CategoryId (always 1), " +
+                   "Amount (the total amount of the receipt), " +
+                   "RegisterTypeId (always 1). " +
+                   "You must only show the output object; do not include the string name 'json'.";
         }
+
     }
 }
 
